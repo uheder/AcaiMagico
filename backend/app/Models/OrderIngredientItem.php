@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OrdemItem extends Model
+class OrderIngredientItem extends Model
 {
-    /** @use HasFactory<\Database\Factories\OrdemItemFactory> */
+    /** @use HasFactory<\Database\Factories\OrderIngredientItemFactory> */
     use HasFactory;
 }
