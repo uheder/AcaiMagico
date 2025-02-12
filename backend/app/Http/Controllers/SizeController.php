@@ -27,7 +27,7 @@ class SizeController extends Controller
         // TODO: create form
     }
 
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $request->validate
         ([
@@ -48,9 +48,8 @@ class SizeController extends Controller
         $size->max_coberturas = $request['max_coberturas'];
         $size->save();
 
-        return response()->json([
-            $size, 201
-        ]);
+        return response()->json(
+            $size, 201);
     }
 
     public function update(Request $request, int $id): JsonResponse
