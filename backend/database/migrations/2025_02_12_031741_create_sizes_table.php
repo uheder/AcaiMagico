@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('sizes', function (Blueprint $table) {
             $table->id();
+            $table->string('nome', 55);
+            $table->decimal('valor, 5, 2');
+            $table->integer('max_cremes')->default(1)->nullable();
+            $table->integer('max_recheios')->default(3)->nullable();
+            $table->integer('max_acompanhamentos')->default(1)->nullable();
+            $table->integer('max_coberturas')->default(1)->nullable();
             $table->timestamps();
         });
     }
