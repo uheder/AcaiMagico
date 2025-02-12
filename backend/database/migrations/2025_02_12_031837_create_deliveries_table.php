@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id')->constrained()->cascadeOnDelete();
             $table->string('nome_cliente', 55);
+            $table->string('telefone_cliente', 15);
             $table->string('rua', 255);
             $table->string('numero', 10);
             $table->string('bairro', 55);
