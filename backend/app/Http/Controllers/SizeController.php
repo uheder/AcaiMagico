@@ -15,9 +15,9 @@ class SizeController extends Controller
         return response()->json(Size::all());
     }
 
-    public function show(Size $size): JsonResponse
+    public function show(int $id): JsonResponse
     {
-        return response()->json(Size::find($size));
+        return response()->json(Size::find($id));
     }
 
     public function create(): View
@@ -48,14 +48,16 @@ class SizeController extends Controller
         $size->max_coberturas = $request['max_coberturas'];
         $size->save();
 
-        return redirect()->route('sizes.index');
+        return response()->json([
+            $size, 201
+        ]);
     }
 
     public function update(Request $request, int $id): JsonResponse
     {
         $request->validate([
-            'nome' => 'string | max:55 | unique:sizes, nome,',
-            'valor' => 'float | min:7',
+            'nome' => 'string | max:55 | unique:sizes',
+            'valor' => 'decimal: 0, 2 | min:7',
             'max_cremes' => 'integer | min:1',
             'max_recheios' => 'integer| min:3',
             'max_acompanhamentos' => 'integer | min:1',
@@ -64,8 +66,7 @@ class SizeController extends Controller
 
         Size::find($id)->update($request->all());
         return response()->json([
-            ['message'=>'Atualizado com sucesso!', 202],
-            Size::find($id)
+            [Size::find($id), 202],
         ]);
     }
 

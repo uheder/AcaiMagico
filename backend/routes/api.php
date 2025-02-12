@@ -23,7 +23,7 @@ Route::prefix('v1')->group(function(){
         Route::get('/{id}', [SizeController::class, 'show'])->name('sizes.show');
         Route::get('/criar', [SizeController::class, 'create'])->name('sizes.create');
         Route::post('/criar', [SizeController::class , 'store'])->name('sizes.store');
-        Route::put('/update/{id}', [SizeController::class, 'update'])->name('sizes.update');
-        Route::delete('/delete/{id}', [SizeController::class, 'delete'])->name('sizes.delete');
+        Route::put('/editar/{id}', [SizeController::class, 'update'])->name('sizes.update');
+        Route::delete('/deletar/{id}', [SizeController::class, 'delete'])->name('sizes.delete');
     });
 });
