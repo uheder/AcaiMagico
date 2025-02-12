@@ -18,7 +18,7 @@ class Order extends Model
         'status', // Pendente, Montando, Pronto, Em Rota de Entrega, Concluído
         'total',
         'observacao',
-        'entrega', // True or False
+        'tipo_entrega', // Retira ou Entrega
     ];
 
     public function items(): HasMany // 1:N

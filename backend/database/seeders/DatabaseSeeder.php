@@ -2,8 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Delivery;
+use App\Models\Ingredient;
+use App\Models\Order;
+use App\Models\OrderIngredientItem;
+use App\Models\OrderItem;
+use App\Models\Size;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,11 +17,31 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        Size::factory()->count(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        Ingredient::factory()->count(10)->create();
+
+        Order::factory()->count(10)->create()->each(function (Order $order)
+        {
+            OrderItem::factory()->count(rand(1, 3))->create
+            ([
+                'order_id' => $order->id,
+            ])->each
+            (function ($orderItem)
+            {
+                OrderIngredientItem::factory()->count(rand(1, 3))->create
+                ([
+                    'order_item_id' => $orderItem->id,
+                ]);
+            });
+
+            if ($order->tipo_entrega === 'Entrega')
+            {
+                Delivery::factory()->create
+                ([
+                    'order_id' => $order->id,
+                ]);
+            }
+        });
     }
 }

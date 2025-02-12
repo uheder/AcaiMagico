@@ -19,6 +19,7 @@ class Delivery extends Model
         'rua',
         'numero',
         'bairro',
+        'referencia',
         'forma_pagamento', // Dinheiro, Pix, Cartão
         'troco',
         'troco_para',
