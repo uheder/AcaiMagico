@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('numero', 10);
             $table->string('bairro', 55);
             $table->string('referencia', 255);
-            $table->string('tipo_pagamento', strlen("Dinheiro"))->default("Dinheiro");
+            $table->string('forma_pagamento', strlen("Dinheiro"))->default("Dinheiro");
             $table->boolean('troco')->default(false);
             $table->decimal('troco_para', 5)->nullable();
             $table->timestamps();
