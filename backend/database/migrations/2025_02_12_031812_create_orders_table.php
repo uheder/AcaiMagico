@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome_cliente', 55);
             $table->string('observacao', 255)->nullable();
-            $table->string('entrega')->default('Entrega');
+            $table->string('tipo_entrega')->default('Entrega');
             $table->string('status', 20)->default('Pendente');
             $table->decimal('total', 10, 2);
             $table->timestamps();
