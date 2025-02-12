@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Size;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +20,18 @@ class OrderItemFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'order_id' => Order::factory(),
+            'size_id' => Size::factory(),
+            'quantidade' => $this->faker->numberBetween(1, 5),
+            'valor_item' => 0,
         ];
+    }
+
+    public function configure(): static
+    {
+        return $this->afterCreating(callback: function (OrderItem $orderItem) {
+            $orderItem->valor_item = $orderItem->size->valor * $orderItem->quantidade;
+            $orderItem->save();
+        });
     }
 }
