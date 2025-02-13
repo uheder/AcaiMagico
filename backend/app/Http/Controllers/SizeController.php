@@ -64,9 +64,9 @@ class SizeController extends Controller
         ]);
 
         Size::find($id)->update($request->all());
-        return response()->json([
-            [Size::find($id), 202],
-        ]);
+        return response()->json(
+            Size::find($id), 202,
+        );
     }
 
     public function delete(int $id)
