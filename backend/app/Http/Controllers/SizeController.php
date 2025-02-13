@@ -29,7 +29,7 @@ class SizeController extends Controller
 
     public function store(Request $request): JsonResponse
     {
-        $request->validate
+        $data = $request->validate
         ([
             'nome' => 'required | string | max:55| unique:sizes',
             'valor' => 'required | decimal:0,2 | min:7',
@@ -39,17 +39,27 @@ class SizeController extends Controller
             'max_coberturas' => 'required | integer | min:1',
         ]);
 
+        if (!$data) {
+            return response()->json(['error' => 'Erro ao criar o tamanho. Verifique os dados e tente novamente.'], 400);
+        }
+
         $size = new Size();
-        $size->nome = $request['nome'];
-        $size->valor = (float) $request['valor'];
-        $size->max_cremes = $request['max_cremes'];
-        $size->max_recheios = $request['max_recheios'];
-        $size->max_acompanhamentos = $request['max_acompanhamentos'];
-        $size->max_coberturas = $request['max_coberturas'];
+        $size->nome = $data['nome'];
+        $size->valor = (float) $data['valor'];
+        $size->max_cremes = $data['max_cremes'];
+        $size->max_recheios = $data['max_recheios'];
+        $size->max_acompanhamentos = $data['max_acompanhamentos'];
+        $size->max_coberturas = $data['max_coberturas'];
         $size->save();
 
-        return response()->json(
-            $size, 201);
+        return response()->json($size, 201);
+    }
+
+    public function edit(int $id): View
+    {
+        return view('sizes.edit');
+
+        // TODO: create form
     }
 
     public function update(Request $request, int $id): JsonResponse
