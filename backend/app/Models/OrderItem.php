@@ -32,6 +32,6 @@ class OrderItem extends Model
 
     public function ingredient(): BelongsToMany // muitos ingredientes para um ítem
     {
-        return $this->belongsToMany(Ingredient::class);
+        return $this->belongsToMany(Ingredient::class, 'order_ingredient_items');
     }
 }

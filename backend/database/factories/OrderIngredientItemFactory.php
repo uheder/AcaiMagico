@@ -3,14 +3,14 @@
 namespace Database\Factories;
 
 use App\Models\Ingredient;
-use App\Models\OrderIngredientItem;
+use App\Models\IngredientOrderItem;
 use App\Models\OrderItem;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<OrderIngredientItem>
+ * @extends Factory<IngredientOrderItem>
  */
-class OrderIngredientItemFactory extends Factory
+class IngredientOrderItemFactory extends Factory
 {
     /**
      * Define the model's default state.
