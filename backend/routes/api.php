@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\SizeController;
 use Illuminate\Http\Request;
@@ -29,5 +30,12 @@ Route::prefix('v1')->group(function(){
         Route::get('/editar/{id}', [SizeController::class, 'edit'])->name('sizes.edit');
         Route::patch('/editar/{id}', [SizeController::class, 'update'])->name('sizes.update');
         Route::delete('/deletar/{id}', [SizeController::class, 'delete'])->name('sizes.delete');
+
+    });
+
+    Route::prefix('entregas')->group(function () {
+        Route::get('/', [DeliveryController::class, 'index'])->name('deliveries.index');
+        Route::get('/{id}', [DeliveryController::class, 'show'])->name('deliveries.show');
+        Route::patch('/{id}', [DeliveryController::class, 'update'])->name('deliveries.update');
     });
 });
