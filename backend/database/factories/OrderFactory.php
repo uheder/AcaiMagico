@@ -29,8 +29,11 @@ class OrderFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function (Order $order) {
-           $total = $order->items()->sum('valor_item');
-           $order->update(['total' => $total]);
+            //garante que order_items existe antes de atualizar o total
+            OrderItem::factory()->count(3)->create(['order_id' => $order->id]);
+            $order->update([
+                'total' => $order->items()->sum('valor_item')
+            ]);
         });
     }
 }

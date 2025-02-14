@@ -29,7 +29,7 @@ class DeliveryFactory extends Factory
             'forma_pagamento' => $this->faker->randomElement(['Dinheiro', 'Pix', 'Cartão']),
             // retorna true somente se for em dinheiro e o faker voltar true
             'troco' => fn ($attributes) => ($attributes['forma_pagamento'] === 'Dinheiro' && $this->faker->boolean()),
-            'troco_para' => fn($attributes) => (($attributes['troco']) ? null : $this->faker->randomFloat(0, 50, 100)),
+            'troco_para' => fn($attributes) => ((!$attributes['troco']) ? null : $this->faker->randomFloat(0, 50, 100)),
         ];
     }
 }
