@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SizeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,14 @@ Route::prefix('v1')->group(function(){
     Route::prefix('entregas')->group(function () {
         Route::get('/', [DeliveryController::class, 'index'])->name('deliveries.index');
         Route::get('/{id}', [DeliveryController::class, 'show'])->name('deliveries.show');
-        Route::patch('/{id}', [DeliveryController::class, 'update'])->name('deliveries.update');
+    });
+
+    Route::prefix('pedidos')->group(function () {
+        Route::get('/', [OrderController::class, 'index'])->name('orders.index');
+        Route::get('/{id}', [OrderController::class, 'show'])->name('orders.show');
+        Route::get('/criar', [OrderController::class, 'store'])->name('orders.create');
+        Route::post('/criar', [OrderController::class, 'store'])->name('orders.store');
+        Route::patch('/editar_status/{id}', [OrderController::class, 'update'])->name('orders.update');
+        Route::delete('/deletar/{id}', [OrderController::class, 'delete'])->name('orders.delete');
     });
 });
