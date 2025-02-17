@@ -5,7 +5,7 @@ import GuestLayout from "../../GuestLayout.vue";
 
 <template>
   <GuestLayout>
-    Ingredients
+    DashboardAdmin
   </GuestLayout>
 </template>
 
