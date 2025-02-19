@@ -1,10 +1,8 @@
 <script setup>
-
 </script>
 
 <template>
-  <slot>
-  </slot>
+  <slot></slot>
 </template>
 
 <style scoped>
