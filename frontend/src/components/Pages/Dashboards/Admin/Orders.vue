@@ -1,27 +1,20 @@
 <script setup>
-import {onMounted, ref} from "vue";
-import DefaultAdminLayout from "../../DefaultAdminLayout.vue";
-import axios from "axios";
-
-const ordersURL = 'localhost:8000/api/v1/orders';
-const orders = ref([]);
-
-onMounted(async () => {
-  try {
-    const response = await axios.get(ordersURL);
-    orders.value = response.data;
-  } catch (error) {
-    console.log(error);
-  }
-});
-
+import DefaultAdminLayout from "../../../DefaultAdminLayout.vue";
 </script>
 
 <template>
   <DefaultAdminLayout>
-    <ul>
-      <li v-for="order in orders" :key="order.id">{{ order }}</li>
-    </ul>
+    <header class="bg-white shadow-sm">
+      <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900">Pedidos</h1>
+      </div>
+    </header>
+    <main>
+      <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <strong>Aqui serão listados os pedidos</strong>
+      </div>
+    </main>
+
   </DefaultAdminLayout>
 
 
