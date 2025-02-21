@@ -2,20 +2,17 @@
 
 namespace App\Models;
 
-use Database\Factories\OrderIngredientItemFactory;
+use Database\Factories\OrderAcompanhamentoItemFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
-// pivot table
-class OrderIngredientItem extends Model
+class OrderAcompanhamentoItem extends Model
 {
-    /** @use HasFactory<OrderIngredientItemFactory> */
+    /** @use HasFactory<OrderAcompanhamentoItemFactory> */
     use HasFactory;
 
     protected $fillable = [
         'order_item_id',
-        'ingredient_id',
+        'acompanhamento_id',
     ];
-
 }

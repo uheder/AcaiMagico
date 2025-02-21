@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sizes', function (Blueprint $table) {
+        Schema::create('recheios', function (Blueprint $table) {
             $table->id();
-            $table->string('nome', 55);
-            $table->decimal('valor', 5, 2);
-            $table->integer('max_cremes')->default(1)->nullable();
-            $table->integer('max_recheios')->default(3)->nullable();
-            $table->integer('max_acompanhamentos')->default(1)->nullable();
-            $table->integer('max_coberturas')->default(1)->nullable();
+            $table->string('nome', 25);
             $table->string('status', 6)->default('ativo');
             $table->timestamps();
         });
@@ -29,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sizes');
+        Schema::dropIfExists('recheios');
     }
 };

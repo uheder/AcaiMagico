@@ -30,8 +30,28 @@ class OrderItem extends Model
         return $this->belongsTo(Size::class);
     }
 
-    public function ingredient(): BelongsToMany // muitos ingredientes para um ítem
+//    public function ingredient(): BelongsToMany // muitos ingredientes para um ítem
+//    {
+//        return $this->belongsToMany(Ingredient::class, 'order_ingredient_items');
+//    }
+
+    public function creme(): BelongsToMany
     {
-        return $this->belongsToMany(Ingredient::class, 'order_ingredient_items');
+        return $this->belongsToMany(Creme::class, 'order_creme_items');
+    }
+
+    public function recheio(): BelongsToMany
+    {
+        return $this->belongsToMany(Recheio::class, 'order_recheio_items');
+    }
+
+    public function acompanhamento(): BelongsToMany
+    {
+        return $this->belongsToMany(Acompanhamento::class, 'order_acompanhamento_items');
+    }
+
+    public function cobertura(): BelongsToMany
+    {
+        return $this->belongsToMany(Cobertura::class, 'order_cobertura_items');
     }
 }
