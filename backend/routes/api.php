@@ -16,7 +16,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 
-Route::apiResource('pedidos', OrderController::class)->only(['index', 'store', 'update', 'delete']);
+Route::apiResource('pedidos', OrderController::class)->only(['index', 'show', 'store', 'update', 'delete']);
 Route::apiResource('entregas', DeliveryController::class)->only(['index', 'update']);
 Route::apiResource('cremes', CremeController::class)->only('index','update', 'delete');
 Route::apiResource('recheios', RecheioController::class)->only('index','update', 'delete');
