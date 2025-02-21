@@ -2,12 +2,15 @@
 
 namespace Database\Factories;
 
+use App\Models\OrderItem;
+use App\Models\OrderRecheioItem;
+use App\Models\Recheio;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Acompanhamento>
+ * @extends Factory<OrderRecheioItem>
  */
-class AcompanhamentoFactory extends Factory
+class OrderRecheioItemFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +20,8 @@ class AcompanhamentoFactory extends Factory
     public function definition(): array
     {
         return [
-            'nome' => $this->faker->word(),
+            'order_item_id' => OrderItem::factory(),
+            'recheio_id' => Recheio::factory(),
         ];
     }
 }

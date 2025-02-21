@@ -2,12 +2,15 @@
 
 namespace Database\Factories;
 
+use App\Models\Cobertura;
+use App\Models\OrderCoberturaItem;
+use App\Models\OrderItem;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Acompanhamento>
+ * @extends Factory<OrderCoberturaItem>
  */
-class AcompanhamentoFactory extends Factory
+class OrderCoberturaItemFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +20,8 @@ class AcompanhamentoFactory extends Factory
     public function definition(): array
     {
         return [
-            'nome' => $this->faker->word(),
+            'order_item_id' => OrderItem::factory(),
+            'cobertura_id' => Cobertura::factory(),
         ];
     }
 }

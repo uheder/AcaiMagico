@@ -2,15 +2,15 @@
 
 namespace Database\Factories;
 
-use App\Models\Ingredient;
-use App\Models\OrderIngredientItem;
+use App\Models\Creme;
+use App\Models\OrderCremeItem;
 use App\Models\OrderItem;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<OrderIngredientItem>
+ * @extends Factory<OrderCremeItem>
  */
-class OrderIngredientItemFactory extends Factory
+class OrderCremeItemFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -21,7 +21,7 @@ class OrderIngredientItemFactory extends Factory
     {
         return [
             'order_item_id' => OrderItem::factory(),
-            'ingredient_id' => Ingredient::factory(),
+            'creme_id' => Creme::factory(),
         ];
     }
 }
