@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('coberturas', function (Blueprint $table) {
             $table->id();
             $table->string('nome', 25);
-            $table->string('status', 6)->default('ativo');
+            $table->string('status', 7)->default('ativo');
             $table->timestamps();
         });
     }

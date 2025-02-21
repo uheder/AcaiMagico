@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('max_recheios')->default(3)->nullable();
             $table->integer('max_acompanhamentos')->default(1)->nullable();
             $table->integer('max_coberturas')->default(1)->nullable();
-            $table->string('status', 6)->default('ativo');
+            $table->string('status', 7)->default('ativo');
             $table->timestamps();
         });
     }
