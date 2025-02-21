@@ -7,7 +7,6 @@ use App\Models\Order;
 use App\Models\Size;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class OrderController extends Controller
 {
@@ -16,12 +15,13 @@ class OrderController extends Controller
     public function index(): JsonResponse
     {
         return response()->json(Order::where('status', ['Pendente', 'Montando'])
-            ->with(['items', 'delivery'])->get()
+            ->with([
+                'items', 'items.creme', 'items.recheio', 'items.acompanhamento', 'items.cobertura', 'delivery'])->get()
             );
     }
     public function show(int $id): JsonResponse
     {
-        $order = Order::find($id)->load(['items', 'delivery']);
+        $order = Order::find($id)->load(['items', 'items.creme', 'items.recheio', 'items.acompanhamento', 'items.cobertura', 'delivery']);
         return response()->json($order);
     }
 
@@ -30,27 +30,27 @@ class OrderController extends Controller
 
         $request->validate([
             'nome_cliente' => 'required|string|max:55',
-            'telefone_cliente' => 'required_if: tipo_entrega, Entrega|string|max:15',
             'tipo_entrega' => 'required|string|in:Entrega,Retirada',
+            'telefone_cliente' => 'required_if: tipo_entrega, Entrega|string|max:15',
             'rua' => 'required_if:tipo_entrega,Entrega|string|max:55',
             'numero' => 'required_if:tipo_entrega,Entrega|string|max:10',
             'bairro' => 'required_if:tipo_entrega,Entrega|string|max:55',
             'referencia' => 'required_if:tipo_entrega,Entrega|string|max:255',
             'forma_pagamento' => 'required|string|in:Dinheiro,Pix,Cartão',
             'troco' => 'required_if:forma_pagamento,Dinheiro|boolean',
-            'troco_para' => 'required_if:troco,true|numeric|max:55',
+            'troco_para' => 'required_if:troco,true|numeric|max:200',
             'observacao' => 'nullable|string|max:255',
             'items' => 'required|array|min:1',
             'items.*.size_id' => 'required|integer|exists:sizes,id',
             'items.*.quantidade' => 'required|integer|min:1',
-            'items.*.cremes' => 'array',
-            'items.*.cremes.*' => 'integer|exists:cremes,id',
-            'items.*.recheios' => 'array',
-            'items.*.recheios.*' => 'integer|exists:recheios,id',
-            'items.*.acompanhamentos' => 'array',
-            'items.*.acompanhamentos.*' => 'integer|exists:acompanhamentos,id',
-            'items.*.coberturas' => 'array',
-            'items.*.coberturas.*' => 'integer|exists:coberturas,id',
+            'items.*.creme' => 'array',
+            'items.*.creme.*' => 'integer|exists:cremes,id',
+            'items.*.recheio' => 'array',
+            'items.*.recheio.*' => 'integer|exists:recheios,id',
+            'items.*.acompanhamento' => 'array',
+            'items.*.acompanhamento.*' => 'integer|exists:acompanhamentos,id',
+            'items.*.cobertura' => 'array',
+            'items.*.cobertura.*' => 'integer|exists:coberturas,id',
         ]);
 
         $order = Order::create([
@@ -79,10 +79,10 @@ class OrderController extends Controller
             $orderItem->valor_item = $size->valor * $item['quantidade'];
             $orderItem->save();
 
-            $orderItem->creme()->attach($item['cremes'] ?? []);
-            $orderItem->recheio()->attach($item['recheios'] ?? []);
-            $orderItem->acompanhamento()->attach($item['acompanhamentos'] ?? []);
-            $orderItem->cobertura()->attach($item['coberturas'] ?? []);
+            $orderItem->creme()->attach($item['creme'] ?? []);
+            $orderItem->recheio()->attach($item['recheio'] ?? []);
+            $orderItem->acompanhamento()->attach($item['acompanhamento'] ?? []);
+            $orderItem->cobertura()->attach($item['cobertura'] ?? []);
             $total += $orderItem->valor_item;
         }
 
@@ -102,7 +102,7 @@ class OrderController extends Controller
 
         $order->total = $total;
         $order->save();
-        $order->load('items', 'items.cremes', 'items.recheios', 'items.acompanhamentos', 'items.coberturas','delivery');
+        $order->load('items', 'items.creme', 'items.recheio', 'items.acompanhamento', 'items.cobertura','delivery');
 
         return response()->json($order, 201);
     }
@@ -119,7 +119,7 @@ class OrderController extends Controller
         ]);
         $order->save();
         $order->load([
-            'items', 'items.cremes', 'items.recheios', 'items.acompanhamentos', 'items.coberturas', 'delivery'
+            'items', 'items.creme', 'items.recheio', 'items.acompanhamento', 'items.cobertura', 'delivery'
         ]);
         return response()->json($order, 202);
     }
