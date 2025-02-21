@@ -25,34 +25,33 @@ class OrderController extends Controller
         return response()->json($order);
     }
 
-    public function create(): View
-    {
-        return view('orders.create');
-
-        // TODO: create form
-    }
-
     public function store(Request $request): JsonResponse
     {
 
-        $validated = $request->validate([
+        $request->validate([
             'nome_cliente' => 'required|string|max:55',
             'telefone_cliente' => 'required_if: tipo_entrega, Entrega|string|max:15',
             'tipo_entrega' => 'required|string|in:Entrega,Retirada',
-            'tipo_pagamento' => 'required|string|in:Dinheiro,Pix,Cartão',
-            'troco' => 'required_if:tipo_pagamento,Dinheiro|boolean',
+            'rua' => 'required_if:tipo_entrega,Entrega|string|max:55',
+            'numero' => 'required_if:tipo_entrega,Entrega|string|max:10',
+            'bairro' => 'required_if:tipo_entrega,Entrega|string|max:55',
+            'referencia' => 'required_if:tipo_entrega,Entrega|string|max:255',
+            'forma_pagamento' => 'required|string|in:Dinheiro,Pix,Cartão',
+            'troco' => 'required_if:forma_pagamento,Dinheiro|boolean',
             'troco_para' => 'required_if:troco,true|numeric|max:55',
             'observacao' => 'nullable|string|max:255',
             'items' => 'required|array|min:1',
             'items.*.size_id' => 'required|integer|exists:sizes,id',
             'items.*.quantidade' => 'required|integer|min:1',
-            'items.*.ingredients' => 'array|min:1',
-            'items.*.ingredients.*' => 'integer|exists:ingredients,id',
+            'items.*.cremes' => 'array',
+            'items.*.cremes.*' => 'integer|exists:cremes,id',
+            'items.*.recheios' => 'array',
+            'items.*.recheios.*' => 'integer|exists:recheios,id',
+            'items.*.acompanhamentos' => 'array',
+            'items.*.acompanhamentos.*' => 'integer|exists:acompanhamentos,id',
+            'items.*.coberturas' => 'array',
+            'items.*.coberturas.*' => 'integer|exists:coberturas,id',
         ]);
-
-        if (!$validated) {
-            return response()->json(['error' => 'Erro ao criar o pedido. Verifique os dados e tente novamente.'], 400);
-        }
 
         $order = Order::create([
             'nome_cliente' => $request->input('nome_cliente'),
@@ -80,34 +79,47 @@ class OrderController extends Controller
             $orderItem->valor_item = $size->valor * $item['quantidade'];
             $orderItem->save();
 
-            $orderItem->ingredient()->attach($item['ingredients']);
+            $orderItem->creme()->attach($item['cremes'] ?? []);
+            $orderItem->recheio()->attach($item['recheios'] ?? []);
+            $orderItem->acompanhamento()->attach($item['acompanhamentos'] ?? []);
+            $orderItem->cobertura()->attach($item['coberturas'] ?? []);
             $total += $orderItem->valor_item;
+        }
+
+        if ($request['tipo_entrega'] === 'Entrega') {
+            $order->delivery()->create([
+                'nome_cliente' => $request['nome_cliente'],
+                'telefone_cliente' => $request['telefone_cliente'],
+                'rua' => $request['rua'],
+                'numero' => $request['numero'],
+                'bairro' => $request['bairro'],
+                'referencia' => $request['referencia'],
+                'forma_pagamento' => $request['forma_pagamento'],
+                'troco' => $request['forma_pagamento'] === 'Dinheiro' ? $request['troco'] : false,
+                'troco_para' => $request['troco'] ? $request["troco_para"] : null,
+            ]);
         }
 
         $order->total = $total;
         $order->save();
-        $order->load('items');
+        $order->load('items', 'items.cremes', 'items.recheios', 'items.acompanhamentos', 'items.coberturas','delivery');
 
         return response()->json($order, 201);
     }
 
     public function update(Request $request, int $id): JsonResponse
     {
-        $validated = $request->validate([
+        $request->validate([
             'status' => 'required|string|in:Pendente,Montando,Pronto para Entrega,Em Rota de Entrega,Concluído,Cancelado',
         ]);
 
-        if (!$validated) {
-            return response()->json(['error' => 'Status não aceito'], 400);
-        }
-
         $order = Order::find($id);
         $order->update([
-            'status'=> $validated['status']
+            'status'=> $request['status']
         ]);
         $order->save();
         $order->load([
-            'items', 'delivery'
+            'items', 'items.cremes', 'items.recheios', 'items.acompanhamentos', 'items.coberturas', 'delivery'
         ]);
         return response()->json($order, 202);
     }

@@ -15,18 +15,6 @@ class SizeController extends Controller
         return response()->json(Size::all());
     }
 
-    public function show(int $id): JsonResponse
-    {
-        return response()->json(Size::find($id));
-    }
-
-    public function create(): View
-    {
-        return view('sizes.create');
-
-        // TODO: create form
-    }
-
     public function store(Request $request): JsonResponse
     {
         $data = $request->validate
@@ -37,6 +25,7 @@ class SizeController extends Controller
             'max_recheios' => 'required | integer | min:3',
             'max_acompanhamentos' => 'required | integer | min:1',
             'max_coberturas' => 'required | integer | min:1',
+            'status' => 'in:ativo,inativo'
         ]);
 
         if (!$data) {
@@ -50,18 +39,11 @@ class SizeController extends Controller
         $size->max_recheios = $data['max_recheios'];
         $size->max_acompanhamentos = $data['max_acompanhamentos'];
         $size->max_coberturas = $data['max_coberturas'];
+        $size->status = $data['status'] ? : 'ativo';
         $size->save();
 
         return response()->json($size, 201);
     }
-
-    public function edit(int $id): View
-    {
-        return view('sizes.edit');
-
-        // TODO: create form
-    }
-
     public function update(Request $request, int $id): JsonResponse
     {
         $request->validate([
@@ -71,6 +53,7 @@ class SizeController extends Controller
             'max_recheios' => 'integer| min:3',
             'max_acompanhamentos' => 'integer | min:1',
             'max_coberturas' => 'integer | min:1',
+            'status' => 'in:ativo,inativo'
         ]);
 
         Size::find($id)->update($request->all());
