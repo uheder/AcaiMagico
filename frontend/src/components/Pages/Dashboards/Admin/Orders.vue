@@ -11,16 +11,16 @@ onMounted(() => getPedidos(pedidos))
 <template>
   <DefaultAdminLayout>
     <header class="shadow-sm">
-      <div class="mx-auto max-w-xl px-4 py-2 sm:px-6 lg:px-8 bg-purple-700">
+      <div class="mx-auto max-w-xl sm:px-6 lg:px-8 ">
         <h1 class="text-3xl font-bold tracking-tight text-gray-900">Pedidos</h1>
       </div>
     </header>
     <main>
-      <div class="mx-auto max-w-7xl px-4 py-2 ml-0 mr-0 bg-purple-500">
+      <div class="mx-auto max-w-7xl px-1 py-2 m-0">
         <div v-for="pedido in pedidos" class="text-sm/4 inline-flex items-center">
           <a href="/admin/orders/{{pedido.numero}}">
-          <div class="my-2 bg-white shadow-sm border border-slate-300 rounded-lg w-auto">
-            <div class="p-4 bg-purple-300">
+          <div class="my-2 bg-white shadow-sm border border-slate-500 rounded-lg w-full">
+            <div class="p-4 bg-purple-400">
               <ul>
                 <li>Nº: {{ pedido.numero }}</li>
                 <li>Cliente: {{ pedido.nome_cliente }}</li>
@@ -35,7 +35,6 @@ onMounted(() => getPedidos(pedidos))
         </div>
       </div>
     </main>
-
   </DefaultAdminLayout>
 
 
