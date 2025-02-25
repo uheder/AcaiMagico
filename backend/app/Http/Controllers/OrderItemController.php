@@ -30,7 +30,7 @@ class OrderItemController extends Controller
         return response()->json($orderItem, 202);
     }
 
-    public function delete(Request $request, OrderItem $orderItem): void
+    public function destroy(Request $request, OrderItem $orderItem): void
     {
         $orderItem->delete();
     }

@@ -124,7 +124,7 @@ class OrderController extends Controller
         return response()->json($order, 202);
     }
 
-    public function delete(Order $order): void
+    public function destroy(Order $order): void
     {
         $order->delete();
     }
