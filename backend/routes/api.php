@@ -16,12 +16,12 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 
-Route::apiResource('pedidos', OrderController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
-Route::apiResource('entregas', DeliveryController::class)->only(['index', 'update']);
+Route::apiResource('orders', OrderController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
+Route::apiResource('deliveries', DeliveryController::class)->only(['index', 'update']);
 Route::apiResource('cremes', CremeController::class)->only(['index','update', 'destroy']);
 Route::apiResource('recheios', RecheioController::class)->only('index','update', 'destroy');
 Route::apiResource('acompanhamentos', AcompanhamentoController::class)->only('index','update', 'destroy');
 Route::apiResource('coberturas', CoberturaController::class)->only('index','update', 'destroy');
-Route::apiResource('ingredientes', IngredientController::class)->only('index');
-Route::apiResource('tamanhos', SizeController::class)->only(['index', 'update', 'destroy']);
+Route::apiResource('ingredients', IngredientController::class)->only('index');
+Route::apiResource('sizes', SizeController::class)->only(['index', 'update', 'destroy']);
 
