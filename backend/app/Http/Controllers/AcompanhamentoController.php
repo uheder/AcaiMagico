@@ -13,7 +13,7 @@ class AcompanhamentoController extends Controller
     public function index()
     {
         $acompanhamento = Acompanhamento::all();
-        return response()->json($acompanhamento->select('nome', 'status'));
+        return response()->json($acompanhamento->select('id','nome', 'status'));
     }
 
     /**
@@ -64,7 +64,7 @@ class AcompanhamentoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function delete(string $id)
+    public function destroy(string $id)
     {
         Acompanhamento::all()->find($id)->delete();
         return response()->json(null, 204);

@@ -22,7 +22,7 @@ const userNavigation = [
 </script>
 
 <template>
-  <div class="min-h-full">
+  <div class="sm:max-w-full md:max-w-[90%]  lg:w-[75%] xl:max-w-[60%] mx-auto justify center items-center">
     <Disclosure as="nav" class="bg-purple-950" v-slot="{ open }">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
@@ -71,7 +71,7 @@ const userNavigation = [
       <!-- Mobile config -->
       <DisclosurePanel class="md:hidden">
         <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
-          <DisclosureButton v-for="item in navigation" :key="item.name"  :to="item.to" :class="[$route.name === item.to.name ? 'bg-purple-900 text-white' : 'text-gray-300 hover:bg-purple-900 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</DisclosureButton>
+          <DisclosureButton v-for="item in navigation" :key="item.name"  :to="item.to" :class="[$route.name === item.to.name ? 'bg-purple-900 text-white' : 'text-gray-300 hover:bg-purple-900 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium']" :aria-current="item.to.name ? 'page' : undefined">{{ item.name }}</DisclosureButton>
         </div>
         <div class="border-t border-gray-700 pt-4 pb-3">
           <div class="flex items-center px-5">

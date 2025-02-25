@@ -13,7 +13,7 @@ class CoberturaController extends Controller
     public function index()
     {
         $coberturas = Cobertura::all();
-        return response()->json($coberturas->select('nome', 'status'));
+        return response()->json($coberturas->select('id','nome', 'status'));
     }
 
     /**
@@ -64,7 +64,7 @@ class CoberturaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function delete(string $id)
+    public function destroy(string $id)
     {
         Cobertura::all()->find($id)->delete();
         return response()->json(null, 204);

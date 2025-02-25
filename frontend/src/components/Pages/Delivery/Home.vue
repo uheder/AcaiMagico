@@ -193,13 +193,12 @@ const submit = () => {
     </div>
   </div>
   <div class="mt-4 flex items-center justify-center gap-x-6 pb-2">
-    <button type="submit" class="bg-purple-500 rounded-md">Adicionar seleção ao carrinho</button>
+    <button class="rounded-md w-[50%] mt-6 bg-purple-900 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-purple-950 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+      Add to Cart
+    </button>
   </div>
   </form>
 </template>
 
 <style>
-  body {
-    background-color: #f7fafc;
-  }
 </style>

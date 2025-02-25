@@ -62,7 +62,7 @@ class SizeController extends Controller
         );
     }
 
-    public function delete(int $id)
+    public function destroy(int $id)
     {
         Size::find($id)->delete();
         return redirect()->route('sizes.index');

@@ -3,8 +3,9 @@ import router from "./router.js";
 
 const axiosClient = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
-    // withCredentials: true,
-    // withXSRFToken: true,
+    accept: 'application/json',
+    withCredentials: true,
+    withXSRFToken: true,
 })
 
 axios.interceptors.response.use((response) => {

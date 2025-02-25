@@ -13,7 +13,7 @@ class CremeController extends Controller
     public function index()
     {
         $cremes = Creme::all();
-        return response()->json($cremes->select('nome', 'status'));
+        return response()->json($cremes->select('id', 'nome', 'status'));
     }
 
     /**
@@ -63,7 +63,7 @@ class CremeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function delete(string $id)
+    public function destroy(string $id)
     {
         Creme::all()->find($id)->delete();
         return response()->json(null, 204);
