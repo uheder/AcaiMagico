@@ -15,12 +15,12 @@ onMounted(() => {
   <DefaultAdminLayout>
     <header class="shadow-sm">
       <div class="mx-auto max-w-xl sm:px-6 lg:px-8 ">
-        <h1 class="text-3xl font-bold tracking-tight text-gray-900">Pedidos</h1>
+        <h1 class=" pl-3 text-3xl font-bold tracking-tight text-gray-900">Pedidos</h1>
       </div>
     </header>
     <main>
       <div class="mx-auto max-w-7xl px-1 py-2 m-0">
-        <div v-for="pedido in orderStore.orders" class="text-sm/4 inline-flex items-center">
+        <div v-for="pedido in orderStore.orders" class="text-sm/4 flex flex-col px-2">
           <a href="/admin/orders/{{pedido.numero}}">
           <div class="my-2 bg-white shadow-sm border border-slate-500 rounded-lg">
             <div class="p-4 bg-purple-400">
