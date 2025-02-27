@@ -33,6 +33,7 @@ const useAcompanhamentoStore = defineStore('acompanhamento', {
 
         async delete_acompanhamento(acompanhamento) {
             try {
+                if (!confirm('Deseja realmente excluir esse acompanhamento?')) return;
                 await axiosClient.delete(`/api/acompanhamentos/${acompanhamento.id}`);
                 this.acompanhamentos = this.acompanhamentos.filter(c => c.id !== acompanhamento.id);
             } catch (error) {

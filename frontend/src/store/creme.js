@@ -32,6 +32,7 @@ const useCremeStore = defineStore('creme', {
         },
 
         async delete_creme(creme) {
+            if (!confirm('Deseja realmente excluir esse creme?')) return;
             try {
                 await axiosClient.delete(`/api/cremes/${creme.id}`);
                 this.cremes = this.cremes.filter(c => c.id !== creme.id);
