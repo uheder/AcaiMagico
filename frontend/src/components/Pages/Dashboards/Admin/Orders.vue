@@ -1,8 +1,7 @@
 <script setup>
 import DefaultAdminLayout from "../../../DefaultAdminLayout.vue";
 
-import {getPedidos} from "../../../../api.js";
-import {onMounted, ref} from "vue";
+import {onMounted} from "vue";
 import useOrderStore from "../../../../store/order.js";
 
 const orderStore = useOrderStore()

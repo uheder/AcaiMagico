@@ -1,7 +1,6 @@
 <script setup>
 import DefaultAdminLayout from "../../../DefaultAdminLayout.vue";
 import {onMounted, ref} from "vue";
-import {getEntregas, getPedidos} from "../../../../api.js";
 import useDeliveryStore from "../../../../store/delivery.js";
 
 
