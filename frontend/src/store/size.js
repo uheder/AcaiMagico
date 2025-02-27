@@ -10,9 +10,14 @@ const useSizeStore = defineStore('size', {
             try {
                 const response = await axiosClient.get('/api/sizes');
                 this.sizes = Object.values(response.data).map(size => ({
-                    id: size["id"],
-                    name: size["nome"],
-                    status: size["status"],
+                    id: size.id,
+                    nome: size.nome,
+                    valor: size.valor,
+                    qtd_cremes: size.max_cremes,
+                    qtd_recheios: size.max_recheios,
+                    qtd_acompanhamentos: size.max_acompanhamentos,
+                    qtd_coberturas: size.max_coberturas,
+                    status: size.status,
                 }));
             } catch (error) {
                 console.error(error);
@@ -33,6 +38,7 @@ const useSizeStore = defineStore('size', {
 
         async delete_size(size) {
             try {
+                if (!confirm('Deseja realmente excluir esse tamanho de açai?')) return;
                 await axiosClient.delete(`/api/sizes/${size.id}`);
                 this.sizes = this.sizes.filter(s => s.id !== size.id);
             } catch (error) {
