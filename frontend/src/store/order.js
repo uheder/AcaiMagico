@@ -43,6 +43,7 @@ const useOrderStore = defineStore('order', {
         },
 
         async deleteOrder(order) {
+            if (!confirm('Deseja realmente excluir esse pedido?')) return;
             try {
                 await axiosClient.delete(`/api/orders/${order.id}`);
                 this.orders = this.orders.filter(o => o.id !== order.id);

@@ -33,6 +33,7 @@ const useCoberturaStore = defineStore('cobertura', {
 
         async delete_cobertura(cobertura) {
             try {
+                if (!confirm('Deseja realmente excluir essa cobertura?')) return;
                 await axiosClient.delete(`/api/coberturas/${cobertura.id}`);
                 this.coberturas = this.coberturas.filter(c => c.id !== cobertura.id);
             } catch (error) {

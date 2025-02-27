@@ -32,6 +32,7 @@ const useRecheioStore = defineStore('recheio', {
         },
 
         async delete_recheio(recheio) {
+            if (!confirm('Deseja realmente excluir esse recheio?')) return;
             try {
                 await axiosClient.delete(`/api/recheios/${recheio.id}`);
                 this.recheios = this.recheios.filter(r => r.id !== recheio.id);
