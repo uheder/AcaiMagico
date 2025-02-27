@@ -1,27 +1,31 @@
 <script setup>
-import {getTamanhos, getCremes, getRecheios, getAcompanhamentos, getCoberturas} from "../../../api.js";
-import {onMounted, ref} from "vue";
+import {onMounted} from "vue";
+import useSizeStore from "../../../store/size.js";
+import useCremeStore from "../../../store/creme.js";
+import useRecheioStore from "../../../store/recheio.js";
+import useAcompanhamentoStore from "../../../store/acompanhamento.js";
+import useCoberturaStore from "../../../store/cobertura.js";
 
-const tamanhos = ref([]);
-const cremes = ref([]);
-const recheios = ref([]);
-const acompanhamentos = ref([]);
-const coberturas = ref([]);
+const sizeStore = useSizeStore();
+const cremeStore = useCremeStore();
+const recheioStore = useRecheioStore();
+const acompanhamentoStore = useAcompanhamentoStore();
+const coberturaStore = useCoberturaStore();
 
 onMounted( () => {
-    getTamanhos(tamanhos);
-    getCremes(cremes);
-    getRecheios(recheios);
-    getAcompanhamentos(acompanhamentos);
-    getCoberturas(coberturas);
+    sizeStore.fetchSizes();
+    cremeStore.fetchCremes();
+    recheioStore.fetchRecheios();
+    acompanhamentoStore.fetchAcompanhamentos();
+    coberturaStore.fetchCoberturas();
 })
 
 const submit = () => {
-  const tamanhosselected = tamanhos.value.filter(tamanho => tamanho.selected);
-  const cremesselected = cremes.value.filter(creme => creme.selected);
-  const recheiosselected = recheios.value.filter(recheio => recheio.selected);
-  const acompanhamentosselected = acompanhamentos.value.filter(acompanhamento => acompanhamento.selected);
-  const coberturasselected = coberturas.value.filter(cobertura => cobertura.selected);
+  const tamanhosselected = sizeStore.fetchSizes().value.filter(tamanho => tamanho.selected);
+  const cremesselected = cremeStore.fetchCremes().value.filter(creme => creme.selected);
+  const recheiosselected = recheioStore.fetchRecheios().value.filter(recheio => recheio.selected);
+  const acompanhamentosselected = acompanhamentoStore.fetchAcompanhamentos().value.filter(acompanhamento => acompanhamento.selected);
+  const coberturasselected = coberturaStore.fetchCoberturas().value.filter(cobertura => cobertura.selected);
 
   const payload = {
     tamanhos: tamanhosselected,
@@ -47,7 +51,7 @@ const submit = () => {
         <h1 class="text-3xl font-semibold text-purple-900 text-center">Tamanhos</h1>
         <fieldset>
           <div class="grid grid-cols-4 gap-4 h-auto">
-            <div v-for="tamanho in tamanhos" :key="tamanho.name"
+            <div v-for="tamanho in sizeStore.sizes" :key="tamanho.name"
                  class="text-sm/4 inline-flex items-center">
               <input
                   :id="`creme-${tamanho.id}`"
@@ -74,7 +78,7 @@ const submit = () => {
         <h1 class="text-3xl font-semibold text-purple-900 text-center">Cremes</h1>
         <fieldset>
           <div class="grid grid-cols-4 gap-4 h-auto auto-rows-auto">
-            <div v-for="creme in cremes" :key="creme.name"
+            <div v-for="creme in cremeStore.cremes" :key="creme.name"
                  class="text-sm/4 inline-flex items-center">
               <input
                   :id="`creme-${creme.id}`"
@@ -105,7 +109,7 @@ const submit = () => {
         <h1 class="text-3xl font-semibold text-purple-900 text-center">Recheios</h1>
         <fieldset>
           <div class="grid grid-cols-4 gap-4 h-auto">
-            <div v-for="recheio in recheios" :key="recheio.name"
+            <div v-for="recheio in recheioStore.recheios" :key="recheio.name"
                  class="text-sm/4 inline-flex items-center">
               <input
                   :id="`creme-${recheio.id}`"
@@ -136,7 +140,7 @@ const submit = () => {
         <h1 class="text-3xl font-semibold text-purple-900 text-center">Acompanhamentos</h1>
         <fieldset>
           <div class="grid grid-cols-4 gap-4 h-auto">
-            <div v-for="acompanhamento in acompanhamentos" :key="acompanhamento.name"
+            <div v-for="acompanhamento in acompanhamentoStore.acompanhamentos" :key="acompanhamento.name"
                  class="text-sm/4 inline-flex items-center">
               <input
                   :id="`creme-${acompanhamento.id}`"
@@ -167,7 +171,7 @@ const submit = () => {
         <h1 class="text-3xl font-semibold text-purple-900 text-center">Coberturas</h1>
         <fieldset>
           <div class="grid grid-cols-4 gap-4 h-auto">
-            <div v-for="cobertura in coberturas" :key="cobertura.name"
+            <div v-for="cobertura in coberturaStore.coberturas" :key="cobertura.name"
                  class="text-sm/4 inline-flex items-center">
               <input
                   :id="`creme-${cobertura.id}`"
@@ -194,7 +198,7 @@ const submit = () => {
   </div>
   <div class="mt-4 flex items-center justify-center gap-x-6 pb-2">
     <button class="rounded-md w-[50%] mt-6 bg-purple-900 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-purple-950 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-      Add to Cart
+      Adicionar ao carrinho
     </button>
   </div>
   </form>
