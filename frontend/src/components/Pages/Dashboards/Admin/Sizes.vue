@@ -1,7 +1,7 @@
 <script setup>
 
 import DefaultAdminLayout from "../../../DefaultAdminLayout.vue";
-import useSizeStore from "../../../../store/sizes.js";
+import useSizeStore from "../../../../store/size.js";
 import {onMounted} from "vue";
 
 const sizeStore = useSizeStore();
@@ -32,6 +32,20 @@ onMounted(() => {
                     <li>Max. Acompanhamentos: {{ tamanho.qtd_acompanhamentos}}</li>
                     <li>Max. Coberturas: {{ tamanho.qtd_coberturas}}</li>
                     <li>Status: {{ tamanho.status.toUpperCase() }}</li>
+
+                    <!-- Botão atualizar status -->
+                    <button @click="sizeStore.update_size(tamanho)"
+                            class="rounded-md bg-yellow-500 py-2 w-[45%] px-2 mx-1 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-yellow-400 focus:shadow-none active:bg-yellow-400 hover:bg-yellow-400 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                            type="button">
+                      {{ tamanho.status === 'ativo' ? 'Desativar' : 'Ativar' }}
+                    </button>
+
+                    <!-- Botão Excluir -->
+                    <button @click="sizeStore.delete_size(tamanho)"
+                            class="rounded-md bg-red-600 py-2 w-[45%] px-4 border border-transparent text-center text-sm text-red-950 transition-all shadow-md hover:shadow-lg focus:bg-red-500 focus:shadow-none active:bg-red-500 hover:bg-red-500 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                            type="button">
+                      Excluir
+                    </button>
                   </ul>
                 </div>
               </div>
