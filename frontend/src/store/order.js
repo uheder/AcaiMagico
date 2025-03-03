@@ -30,6 +30,21 @@ const useOrderStore = defineStore('order', {
             }
         },
 
+        async getOrder(id) {
+            try {
+                const response = await axiosClient.get(`/api/orders/${id}`);
+                return response.data;
+            } catch (error) {
+                console.error('Erro ao procurar pedido', error);
+            }
+        },
+
+        async createOrder(data) {
+          const response = await axiosClient.post('/api/orders', {
+
+          });
+        },
+
         async updateOrderStatus(order, status) {
             try {
                 const response = await axiosClient.put(`/api/orders/${order.id}`, {
