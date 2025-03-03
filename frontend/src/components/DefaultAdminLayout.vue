@@ -22,7 +22,7 @@ const userNavigation = [
 </script>
 
 <template>
-  <div class="sm:max-w-full md:max-w-[90%]  lg:w-[75%] xl:max-w-[60%] mx-auto justify center items-center">
+  <div class="sm:max-w-full md:max-w-[90%]  lg:w-[75%] xl:max-w-[60%] mx-auto justify-center items-center">
     <Disclosure as="nav" class="bg-purple-950" v-slot="{ open }">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
