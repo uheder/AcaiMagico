@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AcompanhamentoController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CoberturaController;
 use App\Http\Controllers\CremeController;
 use App\Http\Controllers\DeliveryController;
@@ -24,4 +25,4 @@ Route::apiResource('acompanhamentos', AcompanhamentoController::class)->only('in
 Route::apiResource('coberturas', CoberturaController::class)->only('index','update', 'destroy');
 Route::apiResource('ingredients', IngredientController::class)->only('index');
 Route::apiResource('sizes', SizeController::class)->only(['index', 'update', 'destroy']);
-
+Route::apiResource('cart', CartController::class)->only(['index', 'store', 'destroy']);
