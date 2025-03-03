@@ -1,10 +1,14 @@
 <script setup>
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 import useSizeStore from "../../../store/size.js";
 import useCremeStore from "../../../store/creme.js";
 import useRecheioStore from "../../../store/recheio.js";
 import useAcompanhamentoStore from "../../../store/acompanhamento.js";
 import useCoberturaStore from "../../../store/cobertura.js";
+import useCartStore from "../../../store/cart.js";
+import router from "../../../router.js";
+
+const cartStore = useCartStore();
 
 const sizeStore = useSizeStore();
 const cremeStore = useCremeStore();
@@ -20,29 +24,31 @@ onMounted( () => {
     coberturaStore.fetchCoberturas();
 })
 
+const data = ref ({
+  tamanho: '',
+  creme: [],
+  recheio: [],
+  acompanhamento: [],
+  cobertura: [],
+});
+
 const submit = () => {
-  const tamanhosselected = sizeStore.fetchSizes().value.filter(tamanho => tamanho.selected);
-  const cremesselected = cremeStore.fetchCremes().value.filter(creme => creme.selected);
-  const recheiosselected = recheioStore.fetchRecheios().value.filter(recheio => recheio.selected);
-  const acompanhamentosselected = acompanhamentoStore.fetchAcompanhamentos().value.filter(acompanhamento => acompanhamento.selected);
-  const coberturasselected = coberturaStore.fetchCoberturas().value.filter(cobertura => cobertura.selected);
-
-  const payload = {
-    tamanhos: tamanhosselected,
-    cremes: cremesselected,
-    recheios: recheiosselected,
-    acompanhamentos: acompanhamentosselected,
-    coberturas: coberturasselected,
-  }
-
-  console.log(payload);
+  cartStore.addToCart({
+    tamanho: data.value.tamanho,
+    creme: data.value.creme,
+    recheio: data.value.recheio,
+    acompanhamento: data.value.acompanhamento,
+    cobertura: data.value.cobertura,
+    valor_item: data.value.tamanho.valor,
+  })
+  router.push('/cart')
 }
 
 
 </script>
 
 <template>
-
+  <div class="sm:max-w-full md:max-w-[90%]  lg:w-[75%] xl:max-w-[60%] mx-auto items-center justify-center bg-white shadow-md rounded-lg">
   <form @submit.prevent="submit()">
   <div class="space-y-12 ml-4 mr-4">
     <!-- TAMANHOS -->
@@ -51,14 +57,14 @@ const submit = () => {
         <h1 class="text-3xl font-semibold text-purple-900 text-center">Tamanhos</h1>
         <fieldset>
           <div class="grid grid-cols-4 gap-4 h-auto">
-            <div v-for="tamanho in sizeStore.sizes" :key="tamanho.name"
+            <div v-for="tamanho in sizeStore.sizes" :key="tamanho.id"
                  class="text-sm/4 inline-flex items-center">
               <input
-                  :id="`creme-${tamanho.id}`"
+                  :id="`tamanho-${tamanho.id}`"
                   type="radio"
-                  v-model="tamanho.selected"
-                  :name="'tamanho'"
-                  :value="tamanho.name"
+                  v-model="data.tamanho"
+                  :name="tamanho.id"
+                  :value="tamanho"
                   class="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden"
               />
               <div class="text-sm/4 ml-2">
@@ -78,13 +84,13 @@ const submit = () => {
         <h1 class="text-3xl font-semibold text-purple-900 text-center">Cremes</h1>
         <fieldset>
           <div class="grid grid-cols-4 gap-4 h-auto auto-rows-auto">
-            <div v-for="creme in cremeStore.cremes" :key="creme.name"
+            <div v-for="creme in cremeStore.cremes" :key="creme.id"
                  class="text-sm/4 inline-flex items-center">
               <input
                   :id="`creme-${creme.id}`"
                   type="checkbox"
-                  v-model="creme.selected"
-                  :value="creme.name"
+                  v-model="data.creme"
+                  :value="creme"
                   :class="{
                     'col-start-1 row-start-1 rounded-sm border border-gray-300': true,
                     'bg-white checked:border-indigo-600 checked:bg-indigo-600': !creme.disabled,
@@ -109,13 +115,13 @@ const submit = () => {
         <h1 class="text-3xl font-semibold text-purple-900 text-center">Recheios</h1>
         <fieldset>
           <div class="grid grid-cols-4 gap-4 h-auto">
-            <div v-for="recheio in recheioStore.recheios" :key="recheio.name"
+            <div v-for="recheio in recheioStore.recheios" :key="recheio.id"
                  class="text-sm/4 inline-flex items-center">
               <input
-                  :id="`creme-${recheio.id}`"
+                  :id="`recheio-${recheio.id}`"
                   type="checkbox"
-                  v-model="recheio.selected"
-                  :value="recheio.name"
+                  v-model="data.recheio"
+                  :value="recheio"
                   :class="{
                     'col-start-1 row-start-1 rounded-sm border border-gray-300': true,
                     'bg-white checked:border-indigo-600 checked:bg-indigo-600': !recheio.disabled,
@@ -140,13 +146,13 @@ const submit = () => {
         <h1 class="text-3xl font-semibold text-purple-900 text-center">Acompanhamentos</h1>
         <fieldset>
           <div class="grid grid-cols-4 gap-4 h-auto">
-            <div v-for="acompanhamento in acompanhamentoStore.acompanhamentos" :key="acompanhamento.name"
+            <div v-for="acompanhamento in acompanhamentoStore.acompanhamentos" :key="acompanhamento.id"
                  class="text-sm/4 inline-flex items-center">
               <input
-                  :id="`creme-${acompanhamento.id}`"
+                  :id="`acompanhamento-${acompanhamento.id}`"
                   type="checkbox"
-                  v-model="acompanhamento.selected"
-                  :value="acompanhamento.name"
+                  v-model="data.acompanhamento"
+                  :value="acompanhamento"
                   :class="{
                     'col-start-1 row-start-1 rounded-sm border border-gray-300': true,
                     'bg-white checked:border-indigo-600 checked:bg-indigo-600': !acompanhamento.disabled,
@@ -171,13 +177,13 @@ const submit = () => {
         <h1 class="text-3xl font-semibold text-purple-900 text-center">Coberturas</h1>
         <fieldset>
           <div class="grid grid-cols-4 gap-4 h-auto">
-            <div v-for="cobertura in coberturaStore.coberturas" :key="cobertura.name"
+            <div v-for="cobertura in coberturaStore.coberturas" :key="cobertura.id"
                  class="text-sm/4 inline-flex items-center">
               <input
-                  :id="`creme-${cobertura.id}`"
+                  :id="`cobertura-${cobertura.id}`"
                   type="checkbox"
-                  v-model="cobertura.selected"
-                  :value="cobertura.name"
+                  v-model="data.cobertura"
+                  :value="cobertura"
                   :class="{
                     'col-start-1 row-start-1 rounded-sm border border-gray-300': true,
                     'bg-white checked:border-indigo-600 checked:bg-indigo-600': !cobertura.disabled,
@@ -197,11 +203,13 @@ const submit = () => {
     </div>
   </div>
   <div class="mt-4 flex items-center justify-center gap-x-6 pb-2">
-    <button class="rounded-md w-[50%] mt-6 bg-purple-900 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-purple-950 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+    <button class="text-center rounded-md w-[50%] mt-6 bg-purple-900 py-2 px-4 border border-transparent text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-purple-950 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">
       Adicionar ao carrinho
+      <img src="../../../../public/svgCart.svg" class="w-6 h-6 justify-end inline-flex" alt="Adicionar ao carrinho">
     </button>
   </div>
   </form>
+  </div>
 </template>
 
 <style>
