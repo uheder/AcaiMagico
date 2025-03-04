@@ -22,7 +22,8 @@ class CartController extends Controller
             'recheio' => 'array',
             'acompanhamento' => 'array',
             'cobertura' => 'array',
-            'valor_item' => 'required|numeric'
+            'valor_item' => 'required|numeric',
+            'quantidade' => 'required|integer'
         ]);
 
         $item = [
@@ -32,6 +33,7 @@ class CartController extends Controller
             'acompanhamento' => $request->input('acompanhamento'),
             'cobertura' => $request->input('cobertura'),
             'valor_item' => $request->input('valor_item'),
+            'quantidade' => $request->input('quantidade'),
         ];
 
         $cart[] = $item;
