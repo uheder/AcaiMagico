@@ -30,6 +30,7 @@ const data = ref({
   recheio: [],
   acompanhamento: [],
   cobertura: [],
+  quantidade: 1,
 });
 
 const submit = () => {
@@ -40,6 +41,7 @@ const submit = () => {
     acompanhamento: data.value.acompanhamento,
     cobertura: data.value.cobertura,
     valor_item: data.value.tamanho.valor,
+    quantidade: data.value.quantidade,
   })
   router.push('/cart')
 }
@@ -202,6 +204,12 @@ const submit = () => {
           </div>
         </div>
       </div>
+
+      <div class="ml-3">
+        <label for="quantidade" class="block text-sm/6 font-medium text-gray-900">Quantidade</label>
+        <input v-model="data.quantidade" type="number" value="1" min="1" name="quantidade" id="quantidade" class="mr-2 w-[20%] rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+      </div>
+
       <div class="mt-4 flex items-center justify-center gap-x-6 pb-2">
         <button class="text-center rounded-md w-[50%] mt-6 bg-purple-900 py-2 px-4 border border-transparent text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-purple-950 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             type="submit">
