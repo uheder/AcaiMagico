@@ -11,7 +11,7 @@ const useSizeStore = defineStore('size', {
                 const response = await axiosClient.get('/api/sizes');
                 this.sizes = Object.values(response.data).map(size => ({
                     id: size.id,
-                    nome: size.nome,
+                    name: size.nome,
                     valor: size.valor,
                     qtd_cremes: size.max_cremes,
                     qtd_recheios: size.max_recheios,
