@@ -56,15 +56,21 @@ class SizeController extends Controller
             'status' => 'in:ativo,inativo'
         ]);
 
-        Size::find($id)->update($request->all());
-        return response()->json(
-            Size::find($id), 202,
-        );
+        $sizes = Size::all();
+        $size = $sizes->find($id);
+        $size->nome = $request['nome'] ?? $size->nome;
+        $size->valor = $request['valor'] ?? $size->valor;
+        $size->max_cremes = $request['max_cremes'] ?? $size->max_cremes;
+        $size->max_recheios = $request['max_recheios'] ?? $size->max_recheios;
+        $size->max_acompanhamentos = $request['max_acompanhamentos'] ?? $size->max_acompanhamentos;
+        $size->max_coberturas = $request['max_coberturas'] ?? $size->max_coberturas;
+        $size->status = $request['status'] ?? $size->status;
+        $size->save();
+        return response()->json($size);
     }
 
     public function destroy(int $id)
     {
         Size::find($id)->delete();
-        return redirect()->route('sizes.index');
     }
 }
