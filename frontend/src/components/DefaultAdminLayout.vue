@@ -1,7 +1,7 @@
 <script setup>
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
-import LogoAcai from '../assets/LogoAcai.jpg';
+import LogoAcai from '../../public/LogoAcai.jpg';
 
 const user = {
   name: 'Tom Cook',
