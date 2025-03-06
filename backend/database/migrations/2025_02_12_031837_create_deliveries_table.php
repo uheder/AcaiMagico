@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('order_id')->constrained()->ondelete('cascade');
             $table->string('nome_cliente', 55);
             $table->string('telefone_cliente', 15);
             $table->string('rua', 255);
