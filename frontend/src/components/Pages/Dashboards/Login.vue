@@ -1,7 +1,7 @@
 <script setup>
 
 import GuestLayout from "../../GuestLayout.vue";
-import LogoAcai from "../../../assets/LogoAcai.jpg";
+import LogoAcai from "/LogoAcai.jpg";
 </script>
 
 <template>
