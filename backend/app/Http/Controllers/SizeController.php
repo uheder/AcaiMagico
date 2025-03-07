@@ -25,7 +25,7 @@ class SizeController extends Controller
             'max_recheios' => 'required | integer | min:3',
             'max_acompanhamentos' => 'required | integer | min:1',
             'max_coberturas' => 'required | integer | min:1',
-            'status' => 'in:ativo,inativo'
+            'status' => 'string|in:ativo,inativo'
         ]);
 
         if (!$data) {
@@ -39,7 +39,7 @@ class SizeController extends Controller
         $size->max_recheios = $data['max_recheios'];
         $size->max_acompanhamentos = $data['max_acompanhamentos'];
         $size->max_coberturas = $data['max_coberturas'];
-        $size->status = $data['status'] ? : 'ativo';
+        $size->status = $data['status'] ?? 'ativo';
         $size->save();
 
         return response()->json($size, 201);

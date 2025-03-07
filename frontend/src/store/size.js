@@ -24,6 +24,29 @@ const useSizeStore = defineStore('size', {
             }
         },
 
+        async addSize(data) {
+            try {
+                const response = await axiosClient.post('/api/sizes', {
+                    nome: data.nome,
+                    valor: data.valor,
+                    max_cremes: data.max_cremes,
+                    max_recheios: data.max_recheios,
+                    max_acompanhamentos: data.max_acompanhamentos,
+                    max_coberturas: data.max_coberturas
+                })
+
+                if (response.status === 201) {
+                    alert('Tamanho adicionado com sucesso!');
+                    await this.fetchSizes()
+                } else {
+                    alert(response.data.errors)
+                }
+
+            } catch (error) {
+                console.error('Erro ao criar um novo tamanho', error);
+            }
+        },
+
         async update_size(size) {
             try {
                 const response = await axiosClient.put(`/api/sizes/${size.id}`, {
