@@ -19,6 +19,20 @@ const useCoberturaStore = defineStore('cobertura', {
             }
         },
 
+        async addCobertura(data) {
+            try {
+                const response = await axiosClient.post('/api/coberturas', {nome: data.cobertura.nome})
+                if (response.status === 201) {
+                    alert('Cobertura adicionado com sucesso!');
+                    await this.fetchCoberturas()
+                } else {
+                    alert('Erro ao adicionar cobertura');
+                }
+            } catch (error) {
+                console.error('Falha ao adicionar cobertura', error);
+            }
+        },
+
         async update_cobertura(cobertura) {
             try {
                 const response = await axiosClient.put(`/api/coberturas/${cobertura.id}`, {
