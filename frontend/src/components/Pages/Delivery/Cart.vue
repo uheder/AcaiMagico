@@ -4,6 +4,8 @@ import {storeToRefs} from "pinia";
 import {onMounted, ref, toRaw} from "vue";
 import useOrderStore from "../../../store/order.js";
 import router from "../../../router.js";
+import DefaultLayout from "../../DefaultLayout.vue";
+import GuestLayout from "../../GuestLayout.vue";
 
 const cartStore = useCartStore();
 const orderStore = useOrderStore();
@@ -59,19 +61,14 @@ const enviarPedido = () => {
 </script>
 
 <template>
-  <div
-      class="sm:max-w-full md:max-w-[90%]  lg:w-[75%] xl:max-w-[60%] justify-between items-center mx-auto mb-3 mt-1 pl-2">
+  <GuestLayout>
     <div>
-      <h3 class="text-lg font-semibold text-slate-800">Seu carrinho</h3>
       <div class="grid grid-cols-2 gap-2 mt-2">
         <p class="text-slate-500">Confira os itens selecionados</p>
-        <RouterLink to="Home" class="justify-items-end pr-2"><img src="/svgHome.svg" class="h6 w-6"
-                                                                  alt="Retornar a pagina principal"></RouterLink>
       </div>
     </div>
-  </div>
    <div
-        class="sm:max-w-full md:max-w-[90%]  lg:w-[75%] xl:max-w-[60%] justify-center items-center mx-auto h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+        class="justify-center items-center mx-auto h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
      <div v-if="cart.length > 0">
       <table class="w-full text-left table-auto min-w-max">
         <thead>
@@ -255,14 +252,14 @@ const enviarPedido = () => {
     </div>
      <div v-else>
        <div class="flex flex-col items-center justify-center h-screen bg-gray-100 text-gray-800">
-         <div class="text-center">
+         <div class="text-center bg-[url('@/assets/empty_cart.png')] h-full w-full">
            <p class="text-3xl font-semibold text-purple-500 mb-4">Seu carrinho está vazio.</p>
            <p class="text-xl text-gray-600">Que tal adicionar alguns itens? 😄</p>
          </div>
        </div>
      </div>
   </div>
-
+  </GuestLayout>
 
 
 </template>
