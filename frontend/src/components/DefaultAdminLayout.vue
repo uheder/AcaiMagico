@@ -70,12 +70,12 @@ const userNavigation = [
       <!-- Mobile config -->
       <DisclosurePanel class="md:hidden">
         <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
-          <DisclosureButton v-for="item in navigation" :key="item.name"  :to="item.to" :class="[$route.name === item.to.name ? 'bg-purple-900 text-white' : 'text-gray-300 hover:bg-purple-900 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium']" :aria-current="item.to.name ? 'page' : undefined">{{ item.name }}</DisclosureButton>
+          <DisclosureButton v-for="item in navigation" :key="item.name" :to="item.to" :class="[$route.name === item.to.name ? 'bg-purple-900 text-white' : 'text-gray-300 hover:bg-purple-900 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium']" :aria-current="item.to.name ? 'page' : undefined">{{ item.name }}</DisclosureButton>
         </div>
         <div class="border-t border-gray-700 pt-4 pb-3">
           <div class="flex items-center px-5">
             <div class="shrink-0">
-              <img class="size-10 rounded-full" :src="LogoAcai" alt="Logo Açaí Mágico" />
+              <img class="size-10 rounded-full" src="@/assets/LogoAcai.jpg" alt="Logo Açaí Mágico" />
             </div>
             <div class="ml-3">
               <div class="text-base/5 font-medium text-white">{{ user.name }}</div>
