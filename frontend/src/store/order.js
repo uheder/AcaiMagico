@@ -43,27 +43,32 @@ const useOrderStore = defineStore('order', {
         },
 
         async createOrder(client_info) {
-          const response = await axiosClient.post('/api/orders', {
-              nome_cliente: client_info.nome_cliente,
-              observacao: client_info.observacao,
-              tipo_entrega: client_info.tipo_entrega,
-              telefone_cliente: client_info.tipo_entrega === 'Entrega' ? client_info.telefone_cliente : null,
-              rua: client_info.tipo_entrega === 'Entrega' ? client_info.rua : null,
-              bairro: client_info.tipo_entrega === 'Entrega' ? client_info.bairro : null,
-              numero: client_info.tipo_entrega === 'Entrega' ? client_info.numero : null,
-              referencia: client_info.tipo_entrega === 'Entrega' ? client_info.referencia : null,
-              forma_pagamento: client_info.tipo_entrega === 'Entrega' ?client_info.forma_pagamento : null,
-              troco: client_info.tipo_entrega === 'Entrega' ? client_info.forma_pagamento === 'Dinheiro' ? client_info.troco : false : false,
-              troco_para: client_info.tipo_entrega === 'Entrega' ? client_info.forma_pagamento === 'Dinheiro' ? client_info.troco ? client_info.troco_para: 0 : 0 : 0,
-              items: useCartStore().cart.map(item => ({
-                  size_id: item.tamanho.id,
-                  quantidade: item.quantidade,
-                  creme: item.creme.map(creme => creme.id),
-                  recheio: item.recheio.map(recheio => recheio.id),
-                  acompanhamento: item.acompanhamento.map(acompanhamento => acompanhamento.id),
-                  cobertura: item.cobertura.map(cobertura => cobertura.id),
-              })),
-          });
+            try {
+                await axiosClient.post('/api/orders', {
+                    nome_cliente: client_info.nome_cliente,
+                    observacao: client_info.observacao,
+                    tipo_entrega: client_info.tipo_entrega,
+                    telefone_cliente: client_info.tipo_entrega === 'Entrega' ? client_info.telefone_cliente : null,
+                    rua: client_info.tipo_entrega === 'Entrega' ? client_info.rua : null,
+                    bairro: client_info.tipo_entrega === 'Entrega' ? client_info.bairro : null,
+                    numero: client_info.tipo_entrega === 'Entrega' ? client_info.numero : null,
+                    referencia: client_info.tipo_entrega === 'Entrega' ? client_info.referencia : null,
+                    forma_pagamento: client_info.tipo_entrega === 'Entrega' ?client_info.forma_pagamento : null,
+                    troco: client_info.tipo_entrega === 'Entrega' ? client_info.forma_pagamento === 'Dinheiro' ? client_info.troco : false : false,
+                    troco_para: client_info.tipo_entrega === 'Entrega' ? client_info.forma_pagamento === 'Dinheiro' ? client_info.troco ? client_info.troco_para: 0 : 0 : 0,
+                    items: useCartStore().cart.map(item => ({
+                        size_id: item.tamanho.id,
+                        quantidade: item.quantidade,
+                        creme: item.creme.map(creme => creme.id),
+                        recheio: item.recheio.map(recheio => recheio.id),
+                        acompanhamento: item.acompanhamento.map(acompanhamento => acompanhamento.id),
+                        cobertura: item.cobertura.map(cobertura => cobertura.id),
+                    })),
+                });
+            } catch (error) {
+                console.error('Erro ao criar pedido', error);
+            }
+
         },
 
         async updateOrderStatus(order, status) {
