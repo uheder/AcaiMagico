@@ -19,6 +19,20 @@ const useAcompanhamentoStore = defineStore('acompanhamento', {
             }
         },
 
+        async addAcompanhamento(data) {
+            try {
+                const response = await axiosClient.post('/api/acompanhamentos', {nome: data.acompanhamento.nome})
+                if (response.status === 201) {
+                    alert('Acompanhamento adicionado com sucesso!');
+                    await this.fetchAcompanhamentos()
+                } else {
+                    alert('Erro ao adicionar acompanhamento');
+                }
+            } catch (error) {
+                console.error('Falha ao adicionar acompanhamento', error);
+            }
+        },
+
         async update_acompanhamento(acompanhamento) {
             try {
                 const response = await axiosClient.put(`/api/acompanhamentos/${acompanhamento.id}`, {
