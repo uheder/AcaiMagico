@@ -19,6 +19,20 @@ const useCremeStore = defineStore('creme', {
             }
         },
 
+        async addCreme(data) {
+            try {
+                const response = await axiosClient.post('/api/cremes', {nome: data.creme.nome})
+                if (response.status === 201) {
+                    alert('Creme adicionado com sucesso!');
+                    await this.fetchCremes()
+                } else {
+                    alert('Erro ao adicionar creme');
+                }
+            } catch (error) {
+                console.error('Falha ao adicionar creme', error);
+            }
+        },
+
         async update_creme(creme) {
             try {
                 const response = await axiosClient.put(`/api/cremes/${creme.id}`, {
