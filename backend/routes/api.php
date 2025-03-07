@@ -24,5 +24,5 @@ Route::apiResource('recheios', RecheioController::class)->only('index','update',
 Route::apiResource('acompanhamentos', AcompanhamentoController::class)->only('index','update', 'destroy');
 Route::apiResource('coberturas', CoberturaController::class)->only('index','update', 'destroy');
 Route::apiResource('ingredients', IngredientController::class)->only('index');
-Route::apiResource('sizes', SizeController::class)->only(['index', 'update', 'destroy']);
+Route::apiResource('sizes', SizeController::class)->only(['index', 'store', 'update', 'destroy']);
 Route::apiResource('cart', CartController::class)->only(['index', 'store', 'destroy']);
