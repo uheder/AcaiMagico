@@ -9,13 +9,10 @@ const useCoberturaStore = defineStore('cobertura', {
         async fetchCoberturas() {
             try {
                 const response = await axiosClient.get('/api/coberturas');
-                this.coberturas = Object.values(response.data).map(cobertura => ({
-                    id: cobertura["id"],
-                    name: cobertura["nome"],
-                    status: cobertura["status"],
-                }))
+                this.coberturas = response.data
             } catch (error) {
-                console.error(error);
+                console.error('Erro ao carregar cremes', error);
+                throw error;
             }
         },
 

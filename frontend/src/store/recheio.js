@@ -9,13 +9,10 @@ const useRecheioStore = defineStore('recheio', {
         async fetchRecheios() {
             try {
                 const response = await axiosClient.get('/api/recheios');
-                this.recheios = Object.values(response.data).map(recheio => ({
-                    id: recheio["id"],
-                    name: recheio["nome"],
-                    status: recheio["status"],
-                }));
+                this.recheios = response.data;
             } catch (error) {
-                console.error(error);
+                console.error('Erro ao carregar recheios', error);
+                throw error;
             }
         },
 

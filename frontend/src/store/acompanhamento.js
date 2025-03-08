@@ -9,13 +9,11 @@ const useAcompanhamentoStore = defineStore('acompanhamento', {
         async fetchAcompanhamentos() {
             try {
                 const response = await axiosClient.get('/api/acompanhamentos');
-                this.acompanhamentos = Object.values(response.data).map(acompanhamento => ({
-                    id: acompanhamento["id"],
-                    name: acompanhamento["nome"],
-                    status: acompanhamento["status"],
-                }))
+                this.acompanhamentos = response.data;
+
             } catch (error) {
-                console.error(error);
+                console.error('Erro ao carregar acompanhamentos', error);
+                throw error;
             }
         },
 
