@@ -1,7 +1,7 @@
 <script setup>
 
 import DefaultAdminLayout from "../../../DefaultAdminLayout.vue";
-import {onMounted, ref} from "vue";
+import {capitalize, onMounted, ref} from "vue";
 import useCremeStore from "../../../../store/creme.js";
 import useRecheioStore from "../../../../store/recheio.js";
 import useAcompanhamentoStore from "../../../../store/acompanhamento.js";
@@ -93,7 +93,7 @@ const submitCobertura = () => {
                 <div class="my-1 lg:my-2 bg-white shadow-sm border border-slate-500 rounded-lg w-full">
                   <div class="p-4 bg-purple-400">
                     <ul>
-                      <li class="mb-1 text-slate-800 text-xl font-semibold">{{ creme.name }}</li>
+                      <li class="mb-1 text-slate-800 text-xl font-semibold">{{ capitalize(creme.nome) }}</li>
 
                       <!-- Botão atualizar status -->
                       <button @click="cremeStore.update_creme(creme)"
@@ -150,7 +150,7 @@ const submitCobertura = () => {
                 <div class="my-1 lg:my-2 bg-white shadow-sm border border-slate-500 rounded-lg w-full">
                   <div class="p-4 bg-purple-400">
                     <ul>
-                      <li class="mb-1 text-slate-800 text-xl font-semibold">{{ recheio.name }}</li>
+                      <li class="mb-1 text-slate-800 text-xl font-semibold">{{ capitalize(recheio.nome) }}</li>
 
                       <!-- Botão atualizar status -->
                       <button @click="recheioStore.update_recheio(recheio)"
@@ -206,7 +206,7 @@ const submitCobertura = () => {
                 <div class="my-1 lg:my-2 bg-white shadow-sm border border-slate-500 rounded-lg w-full">
                   <div class="p-4 bg-purple-400">
                     <ul>
-                      <li class="mb-1 text-slate-800 text-xl font-semibold">{{ acompanhamento.name }}</li>
+                      <li class="mb-1 text-slate-800 text-xl font-semibold">{{ capitalize(acompanhamento.nome) }}</li>
 
                       <!-- Botão atualizar status -->
                       <button @click="acompanhamentoStore.update_acompanhamento(acompanhamento)"
@@ -262,7 +262,7 @@ const submitCobertura = () => {
                 <div class="my-1 lg:my-2 bg-white shadow-sm border border-slate-500 rounded-lg w-full">
                   <div class="p-4 bg-purple-400">
                     <ul>
-                      <li class="mb-1 text-slate-800 text-xl font-semibold">{{ cobertura.name }}</li>
+                      <li class="mb-1 text-slate-800 text-xl font-semibold">{{ capitalize(cobertura.nome) }}</li>
 
                       <!-- Botão atualizar status -->
                       <button @click="coberturaStore.update_cobertura(cobertura)"
