@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('order_recheio_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_item_id')->constrained()->ondelete('cascade');
-            $table->foreignId('recheio_id')->constrained();
+            $table->foreignId('recheio_id')->constrained()->ondelete('cascade');
             $table->timestamps();
         });
     }
