@@ -56,7 +56,6 @@ const data = ref({
 
 const enviarPedido = () => {
   orderStore.createOrder(data.value);
-  router.push({name: 'Orders'})
 }
 </script>
 
@@ -82,15 +81,15 @@ const enviarPedido = () => {
         <tbody v-for="(item, index) in cart" :key="index">
         <tr class="hover:bg-slate-50">
           <td class="p-4 border-b border-slate-200 py-5">
-            <p class="block font-semibold text-sm text-slate-800">Tamanho: {{ item.tamanho.name }}</p>
+            <p class="block font-semibold text-sm text-slate-800">Tamanho: {{ item.tamanho.nome }}</p>
             <p class="block font-semibold text-sm text-slate-800">Cremes:
-              {{ item.creme.map(creme => creme.name).join(', ') }}</p>
+              {{ item.creme.lenght > 0 ? item.creme.map(creme => creme.nome).join(', ') : 'Sem'}}</p>
             <p class="block font-semibold text-sm text-slate-800">Recheios:
-              {{ item.recheio.length > 0 ? item.recheio.map(recheio => recheio.name).join(', ') : 'Sem' }} </p>
+              {{ item.recheio.length > 0 ? item.recheio.map(recheio => recheio.nome).join(', ') : 'Sem' }} </p>
             <p class="block font-semibold text-sm text-slate-800">Acompanhamentos:
-              {{ item.acompanhamento.length > 0 ? item.acompanhamento.map(acompanhamento => acompanhamento.name).join(', ') : 'Sem' }} </p>
+              {{ item.acompanhamento.length > 0 ? item.acompanhamento.map(acompanhamento => acompanhamento.nome).join(', ') : 'Sem' }} </p>
             <p class="block font-semibold text-sm text-slate-800">Coberturas:
-              {{ item.cobertura.length > 0 ? item.cobertura.map(cobertura => cobertura.name).join(', ') : 'Sem' }}</p>
+              {{ item.cobertura.length > 0 ? item.cobertura.map(cobertura => cobertura.nome).join(', ') : 'Sem' }}</p>
           </td>
           <td class="p-4 border-b border-slate-200 py-5">
             <p class="text-sm text-slate-500 flex-auto max-w-[118px] min-w-[80px]">{{ item.quantidade}}</p>
@@ -100,7 +99,7 @@ const enviarPedido = () => {
           </td>
           <td class="p-4 border-b border-slate-200 py-5">
             <button type="button" @click="cartStore.removeFromCart(index)" class="text-slate-500 hover:text-slate-700">
-              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" class="w-6 h-6" viewBox="0,0,256,256">
+              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" class="w-6 h-6 hover:cursor-pointer" viewBox="0,0,256,256">
                 <g fill="#9a0ee0" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
                    stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
                    font-family="none" font-weight="none" font-size="none" text-anchor="none"
@@ -243,7 +242,7 @@ const enviarPedido = () => {
         </div>
         <div class="flex justify-center items-center mt-4">
           <button
-              class=" mb-2 text-center rounded-md w-[50%] mt-6 bg-purple-900 py-2 px-4 border border-transparent text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-purple-950 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              class="hover:cursor-pointer mb-2 text-center rounded-md w-[50%] mt-6 bg-purple-900 py-2 px-4 border border-transparent text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-purple-950 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
               type="submit">
             Enviar pedido
           </button>
