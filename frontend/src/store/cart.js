@@ -41,8 +41,16 @@ const useCartStore = defineStore('cart', {
         async saveDeliveryData(data) {
             this.deliveryData = data;
             localStorage.setItem('deliveryData', JSON.stringify(data));
-        }
+        },
 
+        getDeliveryData() {
+            const data = localStorage.getItem('deliveryData');
+            if (data) {
+                this.deliveryData =JSON.parse(data);
+            } else {
+                this.deliveryData = null;
+            }
+        }
     }
 })
 
