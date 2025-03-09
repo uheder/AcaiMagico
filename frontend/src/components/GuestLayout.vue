@@ -13,7 +13,7 @@ const route = useRoute()
 </script>
 
 <template>
-  <div class="sm:w-full md:w-[90%]  lg:w-[75%] xl:w-[60%] mx-auto mb-3 mt-1 pl-2 pr-2">
+  <div class="sm:w-full md:w-[90%]  lg:w-[75%] xl:w-[70%] mx-auto mb-3 mt-1 pl-2 pr-2">
     <Disclosure as="nav" class="bg-purple-950 rounded-md">
       <div class="mx-auto max-w-7xl">
         <div class="flex h-10 items-center justify-between">
