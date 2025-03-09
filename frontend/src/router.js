@@ -10,6 +10,7 @@ import Sizes from "./components/Pages/Dashboards/Admin/Sizes.vue";
 import {createRouter, createWebHistory} from "vue-router";
 import Dashboard from "./components/Pages/Dashboards/Admin/Dashboard.vue";
 import Cardapio from "./components/Pages/Delivery/Cardapio.vue";
+import Success from "@/components/Pages/Delivery/Success.vue";
 
 const routes = [
     {
@@ -19,6 +20,7 @@ const routes = [
             {path: '/', name: 'Home', component: Home},
             {path: '/cardapio', name: 'Cardapio', component: Cardapio},
             {path: '/cart', name: 'Cart', component: Cart},
+            {path: '/success/:id', name: 'Success', component: Success}
         ]
     },
     {
