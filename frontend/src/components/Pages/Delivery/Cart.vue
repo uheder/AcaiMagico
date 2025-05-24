@@ -1,9 +1,9 @@
 <script setup>
 import useCartStore from "../../../store/cart.js";
 import {storeToRefs} from "pinia";
-import {onMounted, ref, toRaw} from "vue";
+import {onMounted, ref} from "vue";
 import useOrderStore from "../../../store/order.js";
-import router from "../../../router.js";
+import GuestLayout from "../../GuestLayout.vue";
 
 const cartStore = useCartStore();
 const orderStore = useOrderStore();
@@ -54,24 +54,18 @@ const data = ref({
 
 const enviarPedido = () => {
   orderStore.createOrder(data.value);
-  router.push({name: 'Orders'})
 }
 </script>
 
 <template>
-  <div
-      class="sm:max-w-full md:max-w-[90%]  lg:w-[75%] xl:max-w-[60%] justify-between items-center mx-auto mb-3 mt-1 pl-2">
+  <GuestLayout>
     <div>
-      <h3 class="text-lg font-semibold text-slate-800">Seu carrinho</h3>
       <div class="grid grid-cols-2 gap-2 mt-2">
         <p class="text-slate-500">Confira os itens selecionados</p>
-        <RouterLink to="Home" class="justify-items-end pr-2"><img src="/svgHome.svg" class="h6 w-6"
-                                                                  alt="Retornar a pagina principal"></RouterLink>
       </div>
     </div>
-  </div>
    <div
-        class="sm:max-w-full md:max-w-[90%]  lg:w-[75%] xl:max-w-[60%] justify-center items-center mx-auto h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+        class="justify-center items-center mx-auto h-full overflow-x-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
      <div v-if="cart.length > 0">
       <table class="w-full text-left table-auto min-w-max">
         <thead>
@@ -85,15 +79,15 @@ const enviarPedido = () => {
         <tbody v-for="(item, index) in cart" :key="index">
         <tr class="hover:bg-slate-50">
           <td class="p-4 border-b border-slate-200 py-5">
-            <p class="block font-semibold text-sm text-slate-800">Tamanho: {{ item.tamanho.name }}</p>
+            <p class="block font-semibold text-sm text-slate-800">Tamanho: {{ item.tamanho.nome }}</p>
             <p class="block font-semibold text-sm text-slate-800">Cremes:
-              {{ item.creme.map(creme => creme.name).join(', ') }}</p>
+              {{ item.creme.lenght > 0 ? item.creme.map(creme => creme.nome).join(', ') : 'Sem'}}</p>
             <p class="block font-semibold text-sm text-slate-800">Recheios:
-              {{ item.recheio.length > 0 ? item.recheio.map(recheio => recheio.name).join(', ') : 'Sem' }} </p>
+              {{ item.recheio.length > 0 ? item.recheio.map(recheio => recheio.nome).join(', ') : 'Sem' }} </p>
             <p class="block font-semibold text-sm text-slate-800">Acompanhamentos:
-              {{ item.acompanhamento.length > 0 ? item.acompanhamento.map(acompanhamento => acompanhamento.name).join(', ') : 'Sem' }} </p>
+              {{ item.acompanhamento.length > 0 ? item.acompanhamento.map(acompanhamento => acompanhamento.nome).join(', ') : 'Sem' }} </p>
             <p class="block font-semibold text-sm text-slate-800">Coberturas:
-              {{ item.cobertura.length > 0 ? item.cobertura.map(cobertura => cobertura.name).join(', ') : 'Sem' }}</p>
+              {{ item.cobertura.length > 0 ? item.cobertura.map(cobertura => cobertura.nome).join(', ') : 'Sem' }}</p>
           </td>
           <td class="p-4 border-b border-slate-200 py-5">
             <p class="text-sm text-slate-500 flex-auto max-w-[118px] min-w-[80px]">{{ item.quantidade}}</p>
@@ -103,7 +97,7 @@ const enviarPedido = () => {
           </td>
           <td class="p-4 border-b border-slate-200 py-5">
             <button type="button" @click="cartStore.removeFromCart(index)" class="text-slate-500 hover:text-slate-700">
-              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" class="w-6 h-6" viewBox="0,0,256,256">
+              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" class="w-6 h-6 hover:cursor-pointer" viewBox="0,0,256,256">
                 <g fill="#9a0ee0" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
                    stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
                    font-family="none" font-weight="none" font-size="none" text-anchor="none"
@@ -246,7 +240,7 @@ const enviarPedido = () => {
         </div>
         <div class="flex justify-center items-center mt-4">
           <button
-              class=" mb-2 text-center rounded-md w-[50%] mt-6 bg-purple-900 py-2 px-4 border border-transparent text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-purple-950 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              class="hover:cursor-pointer mb-2 text-center rounded-md w-[50%] mt-6 bg-purple-900 py-2 px-4 border border-transparent text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-purple-950 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
               type="submit">
             Enviar pedido
           </button>
@@ -255,14 +249,14 @@ const enviarPedido = () => {
     </div>
      <div v-else>
        <div class="flex flex-col items-center justify-center h-screen bg-gray-100 text-gray-800">
-         <div class="text-center">
+         <div class="text-center bg-[url('@/assets/empty_cart.png')] bg-no-repeat bg-cover h-full w-full">
            <p class="text-3xl font-semibold text-purple-500 mb-4">Seu carrinho está vazio.</p>
            <p class="text-xl text-gray-600">Que tal adicionar alguns itens? 😄</p>
          </div>
        </div>
      </div>
   </div>
-
+  </GuestLayout>
 
 
 </template>

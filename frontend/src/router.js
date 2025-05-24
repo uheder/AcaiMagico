@@ -9,6 +9,8 @@ import Ingredients from "./components/Pages/Dashboards/Admin/Ingredients.vue";
 import Sizes from "./components/Pages/Dashboards/Admin/Sizes.vue";
 import {createRouter, createWebHistory} from "vue-router";
 import Dashboard from "./components/Pages/Dashboards/Admin/Dashboard.vue";
+import Cardapio from "./components/Pages/Delivery/Cardapio.vue";
+import Success from "@/components/Pages/Delivery/Success.vue";
 
 const routes = [
     {
@@ -16,14 +18,16 @@ const routes = [
         component: DefaultLayout,
         children: [
             {path: '/', name: 'Home', component: Home},
+            {path: '/cardapio', name: 'Cardapio', component: Cardapio},
             {path: '/cart', name: 'Cart', component: Cart},
+            {path: '/success/:id', name: 'Success', component: Success}
         ]
     },
     {
         path: '/admin',
         component: DefaultLayout,
         children: [
-            {path: '', name: 'Dashboard', component: Dashboard },
+            {path: '', name: 'Dashboard', component: Dashboard},
             {path: 'orders', name: 'Orders', component: Orders},
             {path: 'deliveries', name: 'Deliveries', component: Deliveries},
             {path: 'ingredients', name: 'Ingredients', component: Ingredients},

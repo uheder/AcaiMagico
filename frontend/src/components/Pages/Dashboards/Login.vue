@@ -1,13 +1,12 @@
 <script setup>
 
 import GuestLayout from "../../GuestLayout.vue";
-import LogoAcai from "../../../assets/LogoAcai.jpg";
 </script>
 
 <template>
   <GuestLayout>
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-      <img class="mx-auto max-h-25 w-auto rounded-full " :src="LogoAcai" alt="Logo açai mágico"  />
+      <img class="mx-auto max-h-25 w-auto rounded-full " src="@/assets/LogoAcai.jpg" alt="Logo açai mágico"  />
       <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Entrar na sua conta</h2>
     </div>
 

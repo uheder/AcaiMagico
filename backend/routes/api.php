@@ -19,10 +19,10 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::apiResource('orders', OrderController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
 Route::apiResource('deliveries', DeliveryController::class)->only(['index', 'update']);
-Route::apiResource('cremes', CremeController::class)->only(['index','update', 'destroy']);
-Route::apiResource('recheios', RecheioController::class)->only('index','update', 'destroy');
-Route::apiResource('acompanhamentos', AcompanhamentoController::class)->only('index','update', 'destroy');
-Route::apiResource('coberturas', CoberturaController::class)->only('index','update', 'destroy');
+Route::apiResource('cremes', CremeController::class)->only(['index','store','update', 'destroy']);
+Route::apiResource('recheios', RecheioController::class)->only('index','store','update', 'destroy');
+Route::apiResource('acompanhamentos', AcompanhamentoController::class)->only('index','store','update', 'destroy');
+Route::apiResource('coberturas', CoberturaController::class)->only('index','store','update', 'destroy');
 Route::apiResource('ingredients', IngredientController::class)->only('index');
-Route::apiResource('sizes', SizeController::class)->only(['index', 'update', 'destroy']);
+Route::apiResource('sizes', SizeController::class)->only(['index', 'store', 'update', 'destroy']);
 Route::apiResource('cart', CartController::class)->only(['index', 'store', 'destroy']);

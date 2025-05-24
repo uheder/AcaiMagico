@@ -9,13 +9,24 @@ const useRecheioStore = defineStore('recheio', {
         async fetchRecheios() {
             try {
                 const response = await axiosClient.get('/api/recheios');
-                this.recheios = Object.values(response.data).map(recheio => ({
-                    id: recheio["id"],
-                    name: recheio["nome"],
-                    status: recheio["status"],
-                }));
+                this.recheios = response.data;
             } catch (error) {
-                console.error(error);
+                console.error('Erro ao carregar recheios', error);
+                throw error;
+            }
+        },
+
+        async addRecheio(data) {
+            try {
+                const response = await axiosClient.post('/api/recheios', {nome: data.recheio.nome})
+                if (response.status === 201) {
+                    alert('Recheio adicionado com sucesso!');
+                    await this.fetchRecheios()
+                } else {
+                    alert('Erro ao adicionar recheio');
+                }
+            } catch (error) {
+                console.error('Falha ao adicionar recheio', error);
             }
         },
 

@@ -9,13 +9,23 @@ const useCremeStore = defineStore('creme', {
         async fetchCremes() {
             try {
                 const response = await axiosClient.get('/api/cremes');
-                this.cremes = Object.values(response.data).map(creme => ({
-                    id: creme["id"],
-                    name: creme["nome"],
-                    status: creme["status"],
-                }))
+                this.cremes = response.data;
             } catch (error) {
                 console.error(error);
+            }
+        },
+
+        async addCreme(data) {
+            try {
+                const response = await axiosClient.post('/api/cremes', {nome: data.creme.nome})
+                if (response.status === 201) {
+                    alert('Creme adicionado com sucesso!');
+                    await this.fetchCremes()
+                } else {
+                    alert('Erro ao adicionar creme');
+                }
+            } catch (error) {
+                console.error('Falha ao adicionar creme', error);
             }
         },
 
