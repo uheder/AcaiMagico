@@ -14,10 +14,13 @@ class CartController extends Controller
 
     public function store(Request $request)
     {
-        $cart = session('cart', []);
+        $cart = session('cart', [
+            'items' => [],
+            'total' => 0,
+        ]);
 
         $request->validate([
-            'tamanho' => 'required|array',
+            'tamanho' => 'required',
             'creme' => 'array',
             'recheio' => 'array',
             'acompanhamento' => 'array',
@@ -36,7 +39,8 @@ class CartController extends Controller
             'quantidade' => $request->input('quantidade'),
         ];
 
-        $cart[] = $item;
+        $cart["items"][] = $item;
+        $cart["total"] += $item["valor_item"] * $item["quantidade"];
         session(['cart' => $cart]);
         return response()->json($cart);
     }
