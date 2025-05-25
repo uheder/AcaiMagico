@@ -40,7 +40,7 @@ const bairros = [
 const data = ref({
   nome_cliente: '',
   observacao: '',
-  tipo_entrega: 'Retirada',
+  tipo_entrega: 'Retirada Ponto Fixo',
   telefone_cliente: '',
   rua: '',
   numero: '',
@@ -61,12 +61,12 @@ const enviarPedido = () => {
   <GuestLayout>
     <div>
       <div class="grid grid-cols-2 gap-2 mt-2">
-        <p class="text-slate-500">Confira os itens selecionados</p>
+        <p class="text-slate-500 p-4">Confira os itens selecionados</p>
       </div>
     </div>
    <div
         class="justify-center items-center mx-auto h-full overflow-x-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
-     <div v-if="cart.length > 0">
+     <div v-if="cart.items">
       <table class="w-full text-left table-auto min-w-max">
         <thead>
         <tr class="border-b border-slate-300 bg-slate-50">
@@ -76,12 +76,12 @@ const enviarPedido = () => {
           <th class="p-4 text-sm font-normal leading-none text-slate-500"></th>
         </tr>
         </thead>
-        <tbody v-for="(item, index) in cart" :key="index">
+        <tbody v-for="(item, index) in cart.items" :key="index">
         <tr class="hover:bg-slate-50">
           <td class="p-4 border-b border-slate-200 py-5">
             <p class="block font-semibold text-sm text-slate-800">Tamanho: {{ item.tamanho.nome }}</p>
             <p class="block font-semibold text-sm text-slate-800">Cremes:
-              {{ item.creme.length > 0 ? item.creme.map(creme => creme.nome).join(', ') : 'Sem'}}</p>
+              {{ item.creme.nome ?? "Sem" }}</p>
             <p class="block font-semibold text-sm text-slate-800">Recheios:
               {{ item.recheio.length > 0 ? item.recheio.map(recheio => recheio.nome).join(', ') : 'Sem' }} </p>
             <p class="block font-semibold text-sm text-slate-800">Acompanhamentos:
@@ -112,6 +112,9 @@ const enviarPedido = () => {
           </td>
         </tr>
         </tbody>
+        <tr  class="border-b border-slate-200 bg-slate-50">
+        <td class="block font-semibold text-sm text-slate-800 p-4 py-2">Total: R${{ cart.total.toFixed(2) }}</td>
+        </tr>
       </table>
 
       <form @submit.prevent="enviarPedido()">
@@ -142,9 +145,13 @@ const enviarPedido = () => {
               <legend class="py-2 text-sm/6 font-semibold text-gray-900">Tipo de Entrega</legend>
               <div class="inline-flex gap-x-5">
                 <div class="flex items-center gap-x-2">
-                  <input id="retirada" checked v-model="data.tipo_entrega" name="tipo_entrega" value="Retirada" type="radio"
+                  <input id="retirada" checked v-model="data.tipo_entrega" name="tipo_entrega" value="Retirada Ponto Fixo" type="radio"
                          class="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden">
-                  <label for="tipo_entrega" class="block text-sm/6 font-medium text-gray-900">Retirada</label>
+                  <label for="tipo_entrega" class="block text-sm/6 font-medium text-gray-900">Retirar no Ponto Fixo</label>
+
+                  <input id="retirada" v-model="data.tipo_entrega" name="tipo_entrega" value="Retirada Trailer" type="radio"
+                         class="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden">
+                  <label for="tipo_entrega" class="block text-sm/6 font-medium text-gray-900">Retirar no Trailer</label>
 
                   <input id="entrega" v-model="data.tipo_entrega" name="tipo_entrega" value="Entrega" type="radio"
                          class="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden">
