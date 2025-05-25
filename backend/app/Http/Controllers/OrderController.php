@@ -30,7 +30,7 @@ class OrderController extends Controller
 
         $request->validate([
             'nome_cliente' => 'required|string|max:55',
-            'tipo_entrega' => 'required|string|in:Entrega,Retirada',
+            'tipo_entrega' => 'required|string|in:Entrega,Retirada Trailer, Retirada Ponto Fixo',
             'telefone_cliente' => 'required_if: tipo_entrega, Entrega|string|max:15|nullable',
             'rua' => 'required_if:tipo_entrega,Entrega|string|max:55|nullable',
             'numero' => 'required_if:tipo_entrega,Entrega|string|max:10|nullable',
