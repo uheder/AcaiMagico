@@ -81,7 +81,7 @@ const enviarPedido = () => {
           <td class="p-4 border-b border-slate-200 py-5">
             <p class="block font-semibold text-sm text-slate-800">Tamanho: {{ item.tamanho.nome }}</p>
             <p class="block font-semibold text-sm text-slate-800">Cremes:
-              {{ item.creme.lenght > 0 ? item.creme.map(creme => creme.nome).join(', ') : 'Sem'}}</p>
+              {{ item.creme.length > 0 ? item.creme.map(creme => creme.nome).join(', ') : 'Sem'}}</p>
             <p class="block font-semibold text-sm text-slate-800">Recheios:
               {{ item.recheio.length > 0 ? item.recheio.map(recheio => recheio.nome).join(', ') : 'Sem' }} </p>
             <p class="block font-semibold text-sm text-slate-800">Acompanhamentos:
