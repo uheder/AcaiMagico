@@ -1,10 +1,13 @@
 import {defineStore} from "pinia";
 import axiosClient from "../axios.js";
+import cart from "@/components/Pages/Delivery/Cart.vue";
 
 const useCartStore = defineStore('cart', {
     state: () => ({
-        cart: [],
-        deliveryData: JSON.parse(localStorage.getItem('deliveryData')) || {},
+        cart: { items: [], total: 0},
+
+        // TODO: Ajustar delivery para storar dados do delivery em sessão
+        // deliveryData: JSON.parse(localStorage.getItem('deliveryData')) || {},
     }),
 
     actions: {
@@ -12,6 +15,7 @@ const useCartStore = defineStore('cart', {
             try {
                 const response = await axiosClient.get('/api/cart');
                 this.cart = response.data;
+                return response.data;
             } catch (error) {
                 console.error('Erro ao buscar o carrinho:', error);
                 throw error;
@@ -20,8 +24,8 @@ const useCartStore = defineStore('cart', {
 
         async addToCart(item) {
             try {
-                const response = await axiosClient.post('/api/cart', item);
-                this.cart = this.fetchCart();
+                await axiosClient.post('/api/cart', item);
+                await this.fetchCart();
             } catch (error) {
                 console.error('Erro ao adicionar ao carrinho:', error);
                 throw error;
@@ -30,15 +34,17 @@ const useCartStore = defineStore('cart', {
 
         async removeFromCart(index) {
             try {
-                const response = await axiosClient.delete(`/api/cart/${index}`);
-                this.cart = response.data;
+                await axiosClient.delete(`/api/cart/${index}`);
+                await this.fetchCart();
             } catch (error) {
                 console.error('Erro ao remover do carrinho:', error);
                 throw error;
             }
         },
 
-        async saveDeliveryData(data) {
+        // TODO
+
+       /* async saveDeliveryData(data) {
             this.deliveryData = data;
             localStorage.setItem('deliveryData', JSON.stringify(data));
         },
@@ -51,6 +57,8 @@ const useCartStore = defineStore('cart', {
                 this.deliveryData = null;
             }
         }
+
+        */
     }
 })
 

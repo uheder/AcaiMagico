@@ -37,7 +37,7 @@ const data = ref({
 const submit = () => {
   cartStore.addToCart({
     tamanho: data.value.tamanho,
-    creme: data.value.creme,
+    creme: data.value.creme ? data.value.creme : "Sem",
     recheio: data.value.recheio,
     acompanhamento: data.value.acompanhamento,
     cobertura: data.value.cobertura,
@@ -92,7 +92,7 @@ const submit = () => {
                      class="text-sm/4 inline-flex items-center">
                   <input
                       :id="`creme-${creme.id}`"
-                      type="checkbox"
+                      type="radio"
                       v-model="data.creme"
                       :value="creme"
                       :class="{
@@ -100,7 +100,6 @@ const submit = () => {
                     'bg-white checked:border-indigo-600 checked:bg-indigo-600': !creme.disabled,
                     'disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100': creme.disabled,
                   }"
-                      :disabled="creme.disabled"
                   />
                   <div class="text-sm/4 ml-2">
                     <label :for="`creme-${creme.id}`" class="font-medium text-gray-600">

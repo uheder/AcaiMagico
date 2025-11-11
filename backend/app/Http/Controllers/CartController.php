@@ -8,16 +8,22 @@ class CartController extends Controller
 {
     public function index()
     {
-        $cart = session('cart', []);
+        $cart = session('cart', [
+            'items' => [],
+            'total' => 0,
+        ]);
         return response()->json($cart);
     }
 
     public function store(Request $request)
     {
-        $cart = session('cart', []);
+        $cart = session('cart', [
+            'items' => [],
+            'total' => 0,
+        ]);
 
         $request->validate([
-            'tamanho' => 'required|array',
+            'tamanho' => 'required',
             'creme' => 'array',
             'recheio' => 'array',
             'acompanhamento' => 'array',
@@ -36,20 +42,30 @@ class CartController extends Controller
             'quantidade' => $request->input('quantidade'),
         ];
 
-        $cart[] = $item;
+        $cart["items"][] = $item;
+        $cart["total"] += $item["valor_item"] * $item["quantidade"];
         session(['cart' => $cart]);
         return response()->json($cart);
     }
 
     public function destroy($index)
     {
-        $cart = session('cart', []);
+        $cart = session('cart', [
+            'items' => [],
+            'total' => 0,
+        ]);
 
-        if (isset($cart[$index])) {
-            unset($cart[$index]);
-            session(['cart' => $cart]);
-            return response()->json($cart);
+        if (isset($cart['items'][$index])) {
+            unset($cart['items'][$index]);
+            $cart['items'] = array_values($cart['items']);
+
+            // loop para pegar total do carrinho
+            $cart['total'] = collect($cart['items'])->sum(function ($i) {
+                return $i['valor_item'] * $i['quantidade'];
+            });
         }
-        return response()->json('Item não encontrado', 404);
+
+        session(['cart' => $cart]);
+        return response()->json($cart);
     }
 }
