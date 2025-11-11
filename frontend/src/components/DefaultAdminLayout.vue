@@ -74,8 +74,10 @@ const userNavigation = [
               <img class="size-10 rounded-full" src="@/assets/LogoAcai.jpg" alt="Logo Açaí Mágico" />
             </div>
             <div class="ml-3">
-              <div class="text-base/5 font-medium text-white">{{ user.name }}</div> <!-- TODO: TO IMPLEMENT
-              <div class="text-sm font-medium text-gray-400">{{ user.email }}</div> -->
+              <!-- TODO: TO IMPLEMENT
+              <div class="text-base/5 font-medium text-white">{{ user.name }}</div>
+              <div class="text-sm font-medium text-gray-400">{{ user.email }}</div>
+              -->
             </div>
 
             <button type="button" class="relative ml-auto shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
