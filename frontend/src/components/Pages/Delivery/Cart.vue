@@ -69,8 +69,7 @@ const enviarPedido = () => {
 
      <!-- CART ITEMS CONDITIONALS -->
 
-     <div v-if="cart.items">
-       {{  cart. items }}
+     <div v-if="cart.items.length > 0">
       <table class="w-full text-left table-auto min-w-max">
         <thead>
         <tr class="border-b border-slate-300 bg-slate-50">
