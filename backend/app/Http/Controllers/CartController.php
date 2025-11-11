@@ -8,7 +8,10 @@ class CartController extends Controller
 {
     public function index()
     {
-        $cart = session('cart', []);
+        $cart = session('cart', [
+            'items' => [],
+            'total' => 0,
+        ]);
         return response()->json($cart);
     }
 
@@ -47,13 +50,22 @@ class CartController extends Controller
 
     public function destroy($index)
     {
-        $cart = session('cart', []);
+        $cart = session('cart', [
+            'items' => [],
+            'total' => 0,
+        ]);
 
-        if (isset($cart[$index])) {
-            unset($cart[$index]);
-            session(['cart' => $cart]);
-            return response()->json($cart);
+        if (isset($cart['items'][$index])) {
+            unset($cart['items'][$index]);
+            $cart['items'] = array_values($cart['items']);
+
+            // loop para pegar total do carrinho
+            $cart['total'] = collect($cart['items'])->sum(function ($i) {
+                return $i['valor_item'] * $i['quantidade'];
+            });
         }
-        return response()->json('Item não encontrado', 404);
+
+        session(['cart' => $cart]);
+        return response()->json($cart);
     }
 }
